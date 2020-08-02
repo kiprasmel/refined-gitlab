@@ -6,11 +6,15 @@ const rangeInputs = [...document.querySelectorAll('input[type="range"][name^="co
 const numberInputs = [...document.querySelectorAll('input[type="number"][name^="color"]')];
 const output = document.querySelector(".color-output");
 
-function updateColor() {
+function updateColor(): void {
+	// eslint-disable-next-line @typescript-eslint/ban-ts-ignore
+	// @ts-ignore
 	output.style.backgroundColor = `rgb(${rangeInputs[0].value}, ${rangeInputs[1].value}, ${rangeInputs[2].value})`;
 }
 
-function updateInputField(event) {
+function updateInputField(event: any): void {
+	// eslint-disable-next-line @typescript-eslint/ban-ts-ignore
+	// @ts-ignore
 	numberInputs[rangeInputs.indexOf(event.currentTarget)].value = event.currentTarget.value;
 }
 

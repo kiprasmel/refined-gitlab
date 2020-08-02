@@ -1,0 +1,21 @@
+{
+	"apiToken": "",
+	"hostUrl": "https://gitlab.com",
+	"columnLabels": [
+		"open",
+		"backlog",
+		"grooming",
+		"ready",
+		"next",
+		"todo",
+		"in progress",
+		"confirmation",
+		"awaiting deployment",
+		"qa",
+		"done",
+		"closed"
+	],
+	"urlSpecificConfigs": {
+		"foo.bar": {}
+	}
+}

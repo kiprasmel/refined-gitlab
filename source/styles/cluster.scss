@@ -1,0 +1,90 @@
+/**
+ *
+ * Adapted from https://every-layout.dev/layouts/cluster
+ *
+ * ---
+ *
+ * https://tailwindcss.com/docs/adding-new-utilities/
+ *
+ * Basically imitates the `flex-gap`
+ * (
+ * which we would use but can't because
+ * the support atm. is terrible:
+ * https://www.caniuse.com/#feat=flexbox-gap
+ * )
+ *
+ * Usage:
+ *
+
+<div class="cluster">
+	<div> <!-- intermediary wrapper -->
+		<div><!-- child --></div>
+		<div><!-- child --></div>
+		<div><!-- etc --></div>
+	</div>
+</div>
+
+ *
+ * or, if you want items to always take up the full width of the row,
+ * add `cluster-in-x`, like so:
+ *
+
+<div class="cluster cluster-in-2">
+	<div> <!-- intermediary wrapper -->
+		<div><!-- child --></div>
+		<div><!-- child --></div>
+		<div><!-- etc --></div>
+	</div>
+</div>
+
+*
+* in this example, each row will have 2 items who take up
+* the full width of the row.
+*/
+
+// @responsive {
+.cluster {
+	--space: 0.35rem;
+	overflow: hidden;
+}
+
+.cluster > * {
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: flex-start;
+	align-items: center;
+	margin: calc(var(--space) / 2 * -1);
+}
+
+/** have a dynamic amount of columns */
+
+.cluster > * > * {
+	margin: calc(var(--space) / 2);
+}
+
+/** or - set a fixed amount of columns */
+
+.cluster-in-1 > * > * {
+	width: calc(100% * 1);
+}
+
+.cluster-in-2 > * > * {
+	width: calc(1 / 2 * 100% - var(--space));
+}
+
+.cluster-in-3 > * > * {
+	width: calc(1 / 3 * 100% - var(--space));
+}
+
+.cluster-in-4 > * > * {
+	width: calc(1 / 4 * 100% - var(--space));
+}
+
+.cluster-in-5 > * > * {
+	width: calc(1 / 5 * 100% - var(--space));
+}
+
+.cluster-in-6 > * > * {
+	width: calc(1 / 6 * 100% - var(--space));
+}
+// }
