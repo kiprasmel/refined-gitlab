@@ -6,6 +6,7 @@
 	"typings": "dist/index.d.ts",
 	"license": "MIT",
 	"scripts": {
+		"postinstall": "bash ./postinstall.bash",
 		"lint": "run-p lint:*",
 		"lint:js": "xo",
 		"lint:css": "stylelint source/**/*.css",
@@ -66,7 +67,8 @@
 			"browser"
 		],
 		"ignores": [
-			"distribution"
+			"distribution",
+			"gitbeaker"
 		],
 		"globals": [
 			"browser"
