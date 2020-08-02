@@ -1,5 +1,10 @@
 {
-	"private": true,
+	"name": "refined-gitlab",
+	"version": "0.0.0",
+	"author": "Kipras Melnikovas (https://kipras.org) <kipras@kipras.org>",
+	"main": "dist/index.js",
+	"typings": "dist/index.d.ts",
+	"license": "MIT",
 	"scripts": {
 		"lint": "run-p lint:*",
 		"lint:js": "xo",
@@ -13,27 +18,48 @@
 		"release:amo": "web-ext-submit --source-dir distribution",
 		"release": "VER=$(daily-version) run-s build version release:*"
 	},
+	"dependencies": {
+		"webext-options-sync": "^0.21.2",
+		"webextension-polyfill": "^0.4.0"
+	},
 	"devDependencies": {
+		"@sindresorhus/tsconfig": "^0.7.0",
+		"@types/copy-webpack-plugin": "^6.0.0",
+		"@types/firefox-webext-browser": "^78.0.1",
+		"@typescript-eslint/eslint-plugin": "^2.11.0",
+		"@typescript-eslint/parser": "^2.11.0",
+		"babel-eslint": "^10.0.3",
 		"chrome-webstore-upload-cli": "^1.2.0",
-		"copy-webpack-plugin": "^5.0.3",
+		"copy-webpack-plugin": "^6.0.0",
 		"daily-version": "^0.12.0",
 		"dot-json": "^1.1.0",
-		"eslint": "^6.1.0",
+		"eslint": "5.x",
+		"eslint-config-airbnb": "^18.0.0",
+		"eslint-config-prettier": "^6.7.0",
+		"eslint-config-sarpik": "0.2.8",
 		"eslint-config-xo": "^0.26.0",
+		"eslint-plugin-flowtype": "^4.5.2",
+		"eslint-plugin-html": "^6.0.0",
+		"eslint-plugin-import": "^2.18.0",
+		"eslint-plugin-jsx-a11y": "^6.2.3",
+		"eslint-plugin-monorepo": "^0.2.1",
+		"eslint-plugin-prettier": "^3.0.1",
+		"eslint-plugin-react": "^7.14.2",
+		"eslint-plugin-react-hooks": "^2.3.0",
+		"esprima": "^4.0.1",
 		"npm-run-all": "^4.1.5",
+		"prettier": "^1.16.4",
 		"size-plugin": "^1.2.0",
 		"stylelint": "^10.1.0",
 		"stylelint-config-xo": "^0.15.0",
 		"terser-webpack-plugin": "^1.3.0",
+		"ts-loader": "^8.0.2",
+		"typescript": "^3.9.7",
 		"web-ext": "^4.1.0",
 		"web-ext-submit": "^4.1.0",
 		"webpack": "^4.36.1",
 		"webpack-cli": "^3.3.6",
 		"xo": "^0.24.0"
-	},
-	"dependencies": {
-		"webext-options-sync": "^0.21.2",
-		"webextension-polyfill": "^0.4.0"
 	},
 	"xo": {
 		"envs": [
@@ -44,7 +70,13 @@
 		],
 		"globals": [
 			"browser"
+		],
+		"extends": [
+			"eslint-config-sarpik"
 		]
+	},
+	"eslintConfig": {
+		"extends": "eslint-config-sarpik"
 	},
 	"stylelint": {
 		"extends": "stylelint-config-xo"

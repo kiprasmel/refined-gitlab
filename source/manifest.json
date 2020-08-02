@@ -1,9 +1,9 @@
 {
-	"name": "Awesome Extension",
-	"version": "0.0.0",
-	"description": "An awesome new browser extension",
-	"homepage_url": "https://github.com/awesome-templates/browser-extension-template",
 	"manifest_version": 2,
+	"name": "Refined GitLab",
+	"version": "0.0.0",
+	"description": "Makes GitLab just a tad bit better",
+	"homepage_url": "https://github.com/kiprasmel/refined-gitlab",
 	"minimum_chrome_version": "74",
 	"applications": {
 		"gecko": {
@@ -11,21 +11,24 @@
 			"strict_min_version": "67.0"
 		}
 	},
-	"icons": {
-		"128": "icon.png"
-	},
-	"permissions": [
-		"storage"
-	],
+	"icons": {},
+	"permissions": ["storage"],
 	"options_ui": {
 		"chrome_style": true,
 		"page": "options.html"
 	},
 	"background": {
 		"persistent": false,
-		"scripts": [
-			"browser-polyfill.min.js",
-			"background.js"
-		]
-	}
+		"scripts": ["browser-polyfill.min.js", "background.js"]
+	},
+	"content_scripts": [
+		{
+			"matches": [
+				"*://*.mozilla.org/*",
+				"*://*.gitlab.com/*",
+				"*://bucket.digitalarsenal.net/*"
+			],
+			"js": ["index.js"]
+		}
+	]
 }
