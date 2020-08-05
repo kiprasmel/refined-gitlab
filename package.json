@@ -6,6 +6,7 @@
 	"typings": "dist/index.d.ts",
 	"license": "MIT",
 	"scripts": {
+		"dev": "yarn watch",
 		"postinstall": "bash ./postinstall.bash",
 		"lint": "run-p lint:*",
 		"lint:js": "xo",
@@ -22,8 +23,13 @@
 	"dependencies": {
 		"@gitbeaker/browser": "^23.4.2",
 		"@gitbeaker/node": "^23.4.2",
+		"@types/classnames": "^2.2.10",
+		"@types/react-dom": "^16.9.8",
+		"classnames": "^2.2.6",
 		"dom-chef": "^4.1.0",
 		"dom-loaded": "^2.0.0",
+		"react": "^16.13.1",
+		"react-dom": "^16.13.1",
 		"select-dom": "^6.0.2",
 		"webext-options-sync": "^0.21.2",
 		"webextension-polyfill": "^0.4.0"

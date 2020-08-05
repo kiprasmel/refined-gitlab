@@ -23,11 +23,7 @@
 	},
 	"content_scripts": [
 		{
-			"matches": [
-				"*://*.mozilla.org/*",
-				"*://*.gitlab.com/*",
-				"*://bucket.digitalarsenal.net/*"
-			],
+			"matches": ["<all_urls>"],
 			"js": ["index.js"]
 		}
 	]

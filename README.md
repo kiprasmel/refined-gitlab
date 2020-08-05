@@ -2,21 +2,38 @@
 
 Much like [refined github](https://github.com/sindresorhus/refined-github), but for gitlab!
 
-## Local testing
+## Try it from local build
 
-Inside [./source/config.json](./source/config.json) add your gitlab's API token & go load up the extension!
+```sh
+git clone https://github.com/kiprasmel/refined-gitlab.git
+# or:  git clone git@github.com:kiprasmel/refined-gitlab.git
 
-### Firefox
+cd refined-gitlab/
+
+yarn
+```
+
+Inside [./source/utils/config.ts](./source/utils/config.ts) add your gitlab's `API token` & `host URL`; then
+
+```sh
+yarn dev
+```
+
+And then load up the built extension:
+
+- firefox:
 
 ```
 about:debugging#/runtime/this-firefox
 ```
 
-### Chrome
+- chrome:
 
 ```
 chrome://extensions
 ```
+
+& try it out.
 
 ## License
 

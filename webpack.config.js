@@ -28,7 +28,7 @@ module.exports = {
 				test: /\.(js|ts|tsx)$/,
 				loader: "ts-loader",
 				options: {
-					transpileOnly: true,
+					transpileOnly: true /** TODO FUTURE `false` */,
 
 					// compilerOptions: {
 					// 	// Enables ModuleConcatenation. It must be in here to avoid conflict with ts-node when it runs this file

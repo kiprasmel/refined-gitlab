@@ -1,8 +1,12 @@
 import domLoaded from "dom-loaded";
+// eslint-disable-next-line import/no-cycle
+import { Config, getConfig } from "./utils/config";
 
-interface FeatureDescription {
+export type Feature = (config: Config) => any;
+
+export interface FeatureDescription {
 	id: string;
-	feature: () => any;
+	feature: Feature;
 	waitForDomLoaded?: boolean;
 }
 
@@ -14,32 +18,33 @@ class Features {
 	}
 
 	getAll(): FeatureDescription[] {
-		return this.__addedFeatures;
+		return [...this.__addedFeatures];
 	}
 
 	loadAll(): void {
-		this.getAll().forEach(
-			({
-				id = "", //
-				feature = () => {},
-				waitForDomLoaded = false,
-			}) => {
-				try {
-					if (waitForDomLoaded) {
-						(async () => {
-							await domLoaded;
-							feature();
-							console.log("feature loaded: ", id);
-						})();
-					} else {
-						feature();
-						console.log("feature loaded: ", id);
-					}
-				} catch (e) {
-					console.error(`failed to load feature "${id}", error:`, { e });
-				}
+		const config = getConfig();
+
+		for (const { id, feature, waitForDomLoaded } of this.getAll()) {
+			if (config.features[id] === false) {
+				console.log(`⏭ skipping feature because it's disabled in config, id: \`${id}\``);
+				continue;
 			}
-		);
+
+			try {
+				if (waitForDomLoaded) {
+					(async () => {
+						await domLoaded;
+						feature(config);
+						console.log(`✅ (⏱) feature loaded (after dom loaded), id: \`${id}\``);
+					})();
+				} else {
+					feature(config);
+					console.log(`✅ feature loaded (instantly), id: \`${id}\``);
+				}
+			} catch (e) {
+				console.error(`❌ failed to load feature "${id}", error:`, { e });
+			}
+		}
 	}
 }
 

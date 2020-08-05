@@ -20,5 +20,5 @@ export const alwaysExpandSidebar = (): void => {
 features.add({
 	id: "always-expand-sidebar",
 	feature: alwaysExpandSidebar,
-	waitForDomLoaded: true,
+	waitForDomLoaded: false,
 });

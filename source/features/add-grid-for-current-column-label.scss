@@ -29,19 +29,31 @@
 }
 
 .story-point-label-grid__list-item-button {
-	/* width: 100%;
-	height: 100%; */
+	&.select-initiated {
+		border: 1px solid HSL(219, 100%, 64%); // #4687ff;
+	}
+
+	&.select-confirmed,
+	&.select-idle {
+		border: 1px solid HSL(120, 100%, 30%);
+		// font-weight: 500;
+		// hsl(148deg 77% 29%)
+	}
+
+	/** BEGIN resetting the default .btn effects because we have our own */
+	animation: none !important;
+	transition: none !important;
+
+	&:hover,
+	&:focus {
+		animation: none !important;
+		transition: none !important;
+
+		background-color: white;
+	}
+	/** END resetting the default .btn effects because we have our own */
 }
 
-// .story-point-label-grid__list-item-button--selected {
-.selected {
-	border: 1px solid HSL(219, 100%, 64%);
-
-	// #4687ff;
+.cursor-loading {
+	cursor: progress !important;
 }
-
-// .btn:focus {
-// 	background-color: HSL(219, 100%, 64%);
-// 	border-color: none;
-// 	color: none;
-// }

@@ -1,27 +1,25 @@
-import React from "dom-chef";
-import select from "select-dom";
+/* eslint-disable @typescript-eslint/no-explicit-any */
+/* eslint-disable @typescript-eslint/camelcase */
+import React, { useState, useEffect } from "react";
+/** TODO FIXME - investigate https://github.com/facebook/react/tree/master/packages/react-dom#on-the-server etc. */
+import ReactDOM from "react-dom";
+import cx from "classnames";
 
-import { features } from "../Features";
+// eslint-disable-next-line import/no-cycle
+import { Feature, features } from "../Features";
 import { appendNextTo } from "../utils/appendNextTo";
+// eslint-disable-next-line import/no-cycle
 import { api } from "../utils/api";
 
 import "./add-grid-for-current-column-label.scss";
 
-const columnLabels = [
-	"Open",
-	"Backlog",
-	"Grooming",
-	"Ready",
-	"Next",
-	"To Do",
-	"In progress",
-	"Confirmation",
-	"Awaiting deployment",
-	// "awaiting deployment ayyyy lmao fam XD :joy: ",
-	"QA",
-	"Done",
-	"Closed",
-];
+export interface SidebarFeatureFromLabels {
+	title: string;
+	enabled: boolean;
+	labelLayoutType: "grid" | "select";
+	// isMultiChoice: boolean /** TODO FUTURE */;
+	labels: string[];
+}
 
 /**
  * TODO - make generic for any labels
@@ -29,7 +27,9 @@ const columnLabels = [
  *
  * (append | prepend, what labels)
  */
-export const addGridForCurrentColumnLabel = async (): Promise<void> => {
+export const addGridForCurrentColumnLabel: Feature = async ({ sidebarFeaturesFromLabels }) => {
+	// const { enabled, labelLayoutType, labels: columnLabels /** TODO */, title } = sidebarFeaturesFromLabels[0];
+
 	/** TODO */
 	const projectId: string | number = 318;
 	/** TODO */
@@ -38,140 +38,193 @@ export const addGridForCurrentColumnLabel = async (): Promise<void> => {
 	console.log("API", api);
 	(window as any).api = api;
 
-	let currentColumnLabel: string;
+	const Component = ({ columnLabels, title }) => {
+		/** TODO xstate? :kekw: */
+		const [currentColumnLabel, setCurrentColumnLabel] = useState<string | null>();
 
-	try {
-		// const issues = await api.Issues.all({ projectId, groupId: 905 });
-		// console.log("issues", issues);
+		/** retrieve the current label (intially) */
+		useEffect(() => {
+			let hasUnmounted = false;
 
-		const { labels = [] } = await api.Issues.show(projectId, issueIid);
+			api.Issues.show(projectId, issueIid)
+				.then(({ labels: issueLabels = [] }) => {
+					const foundLabel = issueLabels.find((issueLabel: string) => columnLabels.includes(issueLabel));
 
-		for (const label of labels) {
-			if (columnLabels.includes(label)) {
-				currentColumnLabel = label;
-				break;
+					if (!foundLabel) {
+						/** TODO */
+					}
+
+					if (!hasUnmounted) {
+						setCurrentColumnLabel(foundLabel);
+					}
+
+					console.log("currentColumnLabel", currentColumnLabel);
+				})
+				.catch(console.error);
+
+			return (): void => {
+				hasUnmounted = true;
+			};
+
+			/** disabled because should react only on the first load */
+			// eslint-disable-next-line react-hooks/exhaustive-deps
+		}, []);
+
+		const [selectionStatus, setSelectionStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
+
+		const handleLabelChange = async (
+			newLabel: string,
+			e: React.MouseEvent<HTMLButtonElement, MouseEvent>
+		): Promise<void> => {
+			console.log("set", { currentColumnLabel, newLabel });
+
+			let goal: "update" | "remove" | "ignore";
+
+			if (newLabel === currentColumnLabel) {
+				if (e.shiftKey) {
+					goal = "remove";
+
+					// console.log("removing label since it's identical and the shift key was held");
+					// setCurrentColumnLabel(null);
+					// setSelectionStatus("loading");
+				} else {
+					goal = "ignore";
+
+					// console.log("ignoring setting new label because current one already exists");
+					// return;
+				}
+			} else {
+				if (e.shiftKey) {
+					goal = "ignore";
+				} else {
+					goal = "update";
+				}
+
+				// setCurrentColumnLabel(newLabel);
+				// setSelectionStatus("loading");
 			}
-		}
 
-		if (!currentColumnLabel) {
-			currentColumnLabel = "open";
-		}
+			console.log("goal", goal);
 
-		/**
-		 * WARNING - Will **not** find the element
-		 * since it's not even rendered yet
-		 *
-		 * Take care of updating yourself kiddo!
-		 */
-		// // const found = select(`[data-x-label="${currentColumnLabel}"]`);
+			if (goal === "ignore") {
+				console.log("ignoring setting new label because current one already exists");
+				return;
+			} else if (goal === "update") {
+				console.log("removing label since it's identical and the shift key was held");
 
-		// // // eslint-disable-next-line no-unused-expressions
-		// // found?.classList.add("selected");
+				setCurrentColumnLabel(newLabel);
+				setSelectionStatus("loading");
 
-		console.log("currentColumnLabel", currentColumnLabel);
-	} catch (e) {
-		console.error(e);
-	}
+				await api.Issues.edit(projectId, issueIid, {
+					remove_labels: currentColumnLabel /** TODO make sure this is the old one xd */,
+					add_labels: newLabel,
+				})
+					.then((res) => {
+						console.log("res", res);
+						setSelectionStatus("success");
 
-	// let [currentColumnLabel, setCurrentColumnLabel] = useState<string>(() => "grooming");
+						setTimeout(() => {
+							setSelectionStatus("idle");
+						}, 1000 * 2);
+					})
+					.catch((e) => {
+						console.error(e);
+						setSelectionStatus("error");
+					});
+			} else if (goal === "remove") {
+				// // setCurrentColumnLabel(null);
+				setSelectionStatus("loading");
 
-	const setCurrentColumnLabel = async (
-		e: React.MouseEvent<HTMLButtonElement, MouseEvent>, //
-		newLabel: string
-	): Promise<string> => {
-		console.log("set", { e, currentColumnLabel, newLabel });
+				await api.Issues.edit(projectId, issueIid, {
+					remove_labels: currentColumnLabel /** TODO make sure this is the old one xd */,
+				})
+					.then((res) => {
+						console.log("res", res);
 
-		// eslint-disable-next-line no-unused-expressions
-		const oldL = select(`[data-x-label="${currentColumnLabel}"]`);
+						setCurrentColumnLabel(null);
+						setSelectionStatus("success");
 
-		// eslint-disable-next-line no-unused-expressions
-		oldL?.classList.remove("selected");
+						// setTimeout(() => {
+						// 	// // setSelectionStatus("idle");
+						// }, 1000 * 2);
+					})
+					.catch((e) => {
+						console.error(e);
+						setSelectionStatus("error");
+					});
+			} else {
+				throw new Error("Shall be impossible");
+			}
+		};
 
-		// eslint-disable-next-line no-unused-expressions
-		const newL = select(`[data-x-label="${newLabel}"]`);
+		return (
+			<div
+				className={cx({
+					"cursor-loading": selectionStatus === "loading",
+				})}
+			>
+				{/* <div className="block"> */}
+				<div className="title hide-collapsed">
+					{title}{" "}
+					{selectionStatus === "loading" ? (
+						<span title="Updating">🔁</span>
+					) : selectionStatus === "success" || selectionStatus === "idle" ? (
+						currentColumnLabel ? (
+							<span title="Column successfully selected">✅</span>
+						) : (
+							<span title="No column selected">–</span>
+						)
+					) : (
+						<span title="Something went wrong (perhaps the wifi is gone?) - check the console & report the issue">
+							❌
+						</span>
+					)}
+				</div>
 
-		// eslint-disable-next-line no-unused-expressions
-		newL?.classList.add("selected");
+				<div className="cluster">
+					<ul className="story-point-label-grid">
+						{columnLabels.map((label) => (
+							<li key={label}>
+								<button
+									type="button"
+									data-x-label={label}
+									// eslint-disable-next-line @typescript-eslint/explicit-function-return-type
+									onClick={async (e) => await handleLabelChange(label, e)}
+									// className="btn story-point-label-grid__list-item-button"
 
-		console.log({ oldL, newL });
-
-		// e.currentTarget.classList.add("selected");
-
-		/** --- */
-
-		/**
-		 * TODO - call gitlab's API to remove the current label and set a new one
-		 * or "drag" the issue into a different column, if such a feature exists (doubt)
-		 */
-		// await fetch("").then(async (res) => await res.json());
-
-		await api.Issues.edit(projectId, issueIid, {
-			// eslint-disable-next-line @typescript-eslint/camelcase
-			remove_labels: currentColumnLabel,
-			// eslint-disable-next-line @typescript-eslint/camelcase
-			add_labels: newLabel,
-		}).catch((e) => console.error(e));
-
-		// if (newLabel === currentColumnLabel) {
-		// 	return currentColumnLabel;
-		// }
-
-		currentColumnLabel = newLabel;
-
-		return newLabel;
+									className={cx("btn story-point-label-grid__list-item-button", {
+										"cursor-loading": selectionStatus === "loading",
+										//
+										"select-initiated":
+											selectionStatus === "loading" && label === currentColumnLabel,
+										"select-confirmed":
+											selectionStatus === "success" && label === currentColumnLabel,
+										"select-idle": selectionStatus === "idle" && label === currentColumnLabel,
+									})}
+								>
+									{label}
+								</button>
+							</li>
+						))}
+					</ul>
+				</div>
+				{/* </div> */}
+			</div>
+		);
 	};
 
-	const isLabelSelected = (label: string): boolean => currentColumnLabel === label;
+	sidebarFeaturesFromLabels.reverse().forEach(({ title = "", labels = [], enabled = true }) => {
+		if (!enabled) {
+			return;
+		}
 
-	// eslint-disable-next-line no-unused-expressions
+		const node = document.createElement("div");
+		node.id = `ayyy-lmao-${title}`;
+		node.classList.add("block"); /** TODO FIXME (should receive from the thing we tryna render) */
+		appendNextTo(".labels", node);
 
-	appendNextTo(
-		".labels",
-		((
-			<>
-				<div className="block">
-					<div className="title hide-collapsed">Column</div>
-
-					<div className="cluster">
-						<ul className="story-point-label-grid">
-							{columnLabels.map((label) => (
-								<li
-									key={label}
-									className={
-										isLabelSelected(label)
-											? "story-point-label-grid__list-item--selected"
-											: "story-point-label-grid__list-item"
-									}
-								>
-									<button
-										type="button"
-										data-x-label={label}
-										// eslint-disable-next-line @typescript-eslint/explicit-function-return-type
-										onClick={(e) => setCurrentColumnLabel(e, label)}
-										// className="btn story-point-label-grid__list-item-button"
-
-										className={[
-											"btn story-point-label-grid__list-item-button",
-											/** WARNING - Will **NOT** auto-update like you'd expect in react - manage it yourself kiddo */
-											currentColumnLabel === label ? "selected" : "",
-										].join(" ")}
-
-										// className={
-										// 	isLabelSelected(label)
-										// 		? "btn story-point-label-grid__list-item-button--selected"
-										// 		: "btn story-point-label-grid__list-item-button"
-										// }
-									>
-										{label}
-									</button>
-								</li>
-							))}
-						</ul>
-					</div>
-				</div>
-			</>
-		) as unknown) as Node
-	);
+		ReactDOM.render(<Component title={title} columnLabels={labels} />, document.getElementById(node.id));
+	});
 };
 
 features.add({
