@@ -30,10 +30,22 @@ export interface SidebarFeatureFromLabels {
 export const addGridForCurrentColumnLabel: Feature = async ({ sidebarFeaturesFromLabels }) => {
 	// const { enabled, labelLayoutType, labels: columnLabels /** TODO */, title } = sidebarFeaturesFromLabels[0];
 
+	if (!/\/issues\/\d+/.test(window.location.href)) {
+		/** TODO handle @ `Features` */
+		console.log("- skipping feature because wrong page");
+		return;
+	}
+
+	console.log("window.location", window.location, document.location);
+
 	/** TODO */
 	const projectId: string | number = 318;
+
 	/** TODO */
-	const issueIid: string | number = 8014;
+	// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+	const issueIid: string | number = window.location.href.match(/\/issues\/(\d+)/)?.[1]!;
+
+	console.log("issueIid", issueIid);
 
 	console.log("API", api);
 	(window as any).api = api;
