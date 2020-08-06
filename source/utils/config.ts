@@ -71,8 +71,7 @@ function getDefaultConfig(): Config {
 				labelLayoutType: "grid",
 				// isMultiChoice: false, /** TODO FUTURE */
 				labels: [
-					"Open", //
-					"Backlog",
+					"Backlog", //
 					"Grooming",
 					"Ready",
 					"Next",
@@ -82,7 +81,6 @@ function getDefaultConfig(): Config {
 					"Awaiting deployment",
 					"QA",
 					"Done",
-					"Closed",
 				],
 			},
 			{
@@ -100,12 +98,12 @@ function getDefaultConfig(): Config {
 			},
 			{
 				enabled: true,
-				title: "Design status",
+				title: "Priority",
 				labelLayoutType: "grid",
 				labels: [
-					"Design To Do", //
-					"Design In Progress",
-					"Design Review",
+					"P1", //
+					"P2",
+					"P3",
 				],
 			},
 			{
@@ -119,6 +117,16 @@ function getDefaultConfig(): Config {
 					"QA Failed",
 					"QA Blocked",
 					"QA Passed /w Non-critical",
+				],
+			},
+			{
+				enabled: false,
+				title: "Design status",
+				labelLayoutType: "grid",
+				labels: [
+					"Design To Do", //
+					"Design In Progress",
+					"Design Review",
 				],
 			},
 		],
