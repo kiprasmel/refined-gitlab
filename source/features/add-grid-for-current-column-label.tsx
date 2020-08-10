@@ -39,11 +39,13 @@ export const addGridForCurrentColumnLabel: Feature = async ({ sidebarFeaturesFro
 	console.log("window.location", window.location, document.location);
 
 	/** TODO */
-	const projectId: string | number = 318;
+	const projectId: string = document.querySelectorAll(`[data-project-id]`)[0].attributes["data-project-id"].value!;
+
+	console.log("projectId", projectId);
 
 	/** TODO */
 	// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-	const issueIid: string | number = window.location.href.match(/\/issues\/(\d+)/)?.[1]!;
+	const issueIid: string = window.location.href.match(/\/issues\/(\d+)/)?.[1]!;
 
 	console.log("issueIid", issueIid);
 
