@@ -62,7 +62,7 @@ function getDefaultConfig(): Config {
 	return {
 		configVersion: "0",
 		hostUrl: "https://gitlab.com", // "<YOUR_GITLAB_HOST_URL>", /** TODO FIXME - why are there errors if the url is without `https?://` ? */
-		apiToken: "<YOUR_GITLAB_API_TOKEN>" /** TODO provide link to get the API token @ popup */,
+		apiToken: "y1skobVDGVJQEFs8qzMf" /** TODO provide link to get the API token @ popup */,
 
 		sidebarFeaturesFromLabels: [
 			{
@@ -131,6 +131,18 @@ function getDefaultConfig(): Config {
 					"Design To Do", //
 					"Design In Progress",
 					"Design Review",
+				],
+			},
+			{
+				isEnabled: true,
+				title: "Other commons",
+				labelLayoutType: "grid",
+				isMultiSelect: true,
+				labels: [
+					"Techical", //
+					"Research",
+					"Blocked",
+					"Code Dep",
 				],
 			},
 		],

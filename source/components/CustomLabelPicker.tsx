@@ -2,6 +2,9 @@
 import React, { useState, useEffect, FC } from "react";
 import cx from "classnames";
 
+import "./CustomLabelPicker.scss";
+
+// eslint-disable-next-line import/no-cycle
 import { api } from "../utils/api";
 
 type LabelUpdateIntent = "add" | "replace" | "remove";
@@ -15,19 +18,21 @@ const determineLabelUpdateIntent = (
 
 	const includes = currentlySelectedLabels.includes(newLabel);
 
-	if (isMultiSelect) {
-		if (includes) {
-			intent = "remove";
-		} else {
-			intent = "add";
-		}
+	if (includes) {
+		intent = "remove";
 	} else {
-		if (includes) {
-			intent = "remove";
+		if (isMultiSelect) {
+			intent = "add";
 		} else {
-			intent = "replace";
+			if (currentlySelectedLabels.length > 0) {
+				intent = "replace";
+			} else {
+				intent = "add";
+			}
 		}
 	}
+
+	console.log("intent", intent);
 
 	return intent;
 };
@@ -40,25 +45,25 @@ const fetchIssueLabels = async (projectId: number, issueIid: number): Promise<st
 const useCurrentlySelectedLabels = (
 	projectId: number, //
 	issueIid: number,
-	availableLabels: string[]
+	allowedLabels: string[]
 ) => {
 	const [currentlySelectedLabels, __setCurrentlySelectedLabels] = useState<string[]>([]);
 
-	const [selectionStatus, setSelectionStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
+	const [currentLabelsInQuestion, setCurrentLabelsInQuestion] = useState<string[]>([]);
+	const [selectionStatuses, setSelectionStatuses] = useState<
+		Record<string, "idle" | "loading" | "success" | "error">
+	>();
+
+	const findMatchingLabelsFor = (labels: string[]): string[] =>
+		labels.filter((label: string) => allowedLabels.includes(label));
 
 	useEffect(() => {
 		(async (): Promise<void> => {
 			try {
 				const labels: string[] = await fetchIssueLabels(projectId, issueIid);
-				const matchingLabels: string[] = labels.filter((label: string) => availableLabels.includes(label));
-
-				if (!matchingLabels?.length) {
-					/** TODO */
-					throw new Error("TODO - no matching labels lmao");
-				}
+				const matchingLabels: string[] = findMatchingLabelsFor(labels);
 
 				__setCurrentlySelectedLabels(matchingLabels);
-				console.log("currentlySelectedLabels", currentlySelectedLabels);
 			} catch (e) {
 				console.error(e);
 			}
@@ -68,53 +73,61 @@ const useCurrentlySelectedLabels = (
 	}, []);
 
 	const setCurrentlySelectedLabels = async (labelInQuestion: string, intent: LabelUpdateIntent) => {
-		setSelectionStatus("loading");
+		setCurrentLabelsInQuestion((current) => [...current, labelInQuestion]);
+		setSelectionStatuses((current) => ({ ...current, [labelInQuestion]: "loading" }));
+
+		const onSuccess = (res) => {
+			__setCurrentlySelectedLabels(findMatchingLabelsFor(res.labels ?? []));
+			setSelectionStatuses((current) => ({ ...current, [labelInQuestion]: "success" }));
+			setCurrentLabelsInQuestion((current) => [...current].filter((label) => label !== labelInQuestion));
+		};
+
+		const onFailure = (e) => {
+			console.error(e);
+			// // __setCurrentlySelectedLabels(findMatchingLabelsFor(res.labels ?? []));
+			setSelectionStatuses((current) => ({ ...current, [labelInQuestion]: "error" }));
+			setCurrentLabelsInQuestion((current) => [...current].filter((label) => label !== labelInQuestion));
+		};
 
 		try {
 			if (intent === "add") {
-				//
-			} else if (intent === "replace") {
-				/**
-				 * only happens in single-select component
-				 * (in multi select, things are always express via `add` & `replace`)
-				 */
-
-				console.log("removing label since it's identical and the shift key was held");
-
-				// setCurrentlySelectedLabels(newLabel);
-				// setSelectionStatus("loading");
-
 				const res = await api.Issues.edit(projectId, issueIid, {
+					add_labels: labelInQuestion,
+				});
+
+				onSuccess(res);
+			} else if (intent === "replace") {
+				const res = await api.Issues.edit(projectId, issueIid, {
+					/**
+					 * it's safe to do this because the `replace` intent
+					 * only happens in the single-select component variation
+					 * (in multi select, things are always expressed via `add` & `replace`)
+					 */
 					remove_labels: currentlySelectedLabels[0],
 					add_labels: labelInQuestion,
 				});
 
-				console.log("res", res);
-				setSelectionStatus("success");
+				onSuccess(res);
 			} else if (intent === "remove") {
 				const res = await api.Issues.edit(projectId, issueIid, {
-					remove_labels: currentlySelectedLabels /** TODO make sure this is the old one xd */,
+					remove_labels: labelInQuestion /** TODO make sure this is the old one xd */,
 				});
 
-				console.log("res", res);
-
-				// setCurrentlySelectedLabels(null);
-				setSelectionStatus("success");
+				onSuccess(res);
 			}
 		} catch (e) {
-			console.error(e);
-			setSelectionStatus("error");
+			onFailure(e);
 		}
 	};
 
-	return { currentlySelectedLabels, setCurrentlySelectedLabels, selectionStatus };
+	return { currentlySelectedLabels, setCurrentlySelectedLabels, selectionStatuses, currentLabelsInQuestion };
 };
 
 interface Props {
 	projectId: number;
 	issueIid: number;
 	title: string;
-	availableLabels: string[];
+	allowedLabels: string[];
 	isMultiSelect: boolean;
 }
 
@@ -123,21 +136,41 @@ export const CustomLabelPicker: FC<Props> = ({
 	issueIid = -1,
 	isMultiSelect = false,
 	title = "",
-	availableLabels = [],
+	allowedLabels = [],
 }) => {
-	const { currentlySelectedLabels, setCurrentlySelectedLabels, selectionStatus } = useCurrentlySelectedLabels(
-		projectId,
-		issueIid,
-		availableLabels
-	);
+	const {
+		currentlySelectedLabels, //
+		setCurrentlySelectedLabels,
+		selectionStatuses,
+		currentLabelsInQuestion,
+	} = useCurrentlySelectedLabels(projectId, issueIid, allowedLabels);
 
 	const handleLabelChange = async (
 		newLabel: string,
 		_e: React.MouseEvent<HTMLButtonElement, MouseEvent>
 	): Promise<void> => {
 		const intent: LabelUpdateIntent = determineLabelUpdateIntent(newLabel, currentlySelectedLabels, isMultiSelect);
-		setCurrentlySelectedLabels(newLabel, intent);
+		await setCurrentlySelectedLabels(newLabel, intent);
 	};
+
+	const determineSelectionStatus = () => {
+		console.log("selectionStatuses", selectionStatuses);
+		const vals = Object.values(selectionStatuses ?? {});
+
+		if (vals.some((v) => v === "error")) {
+			return "error";
+		} else if (vals.some((v) => v === "loading")) {
+			return "loading";
+		} else if (vals.some((v) => v === "success")) {
+			return "success";
+		} else if (vals.some((v) => v === "idle")) {
+			return "idle";
+		}
+
+		return "idle";
+	};
+
+	const selectionStatus = determineSelectionStatus();
 
 	return (
 		<div
@@ -165,7 +198,7 @@ export const CustomLabelPicker: FC<Props> = ({
 
 			<div className="cluster">
 				<ul className="story-point-label-grid">
-					{currentlySelectedLabels.map((label) => (
+					{allowedLabels.map((label) => (
 						<li key={label}>
 							<button
 								type="button"
@@ -176,13 +209,31 @@ export const CustomLabelPicker: FC<Props> = ({
 
 								className={cx("btn story-point-label-grid__list-item-button", {
 									"cursor-loading": selectionStatus === "loading",
+
+									...(isMultiSelect
+										? {
+												"select-initiated":
+													selectionStatus === "loading" &&
+													currentLabelsInQuestion.includes(label),
+												"select-confirmed":
+													currentlySelectedLabels.includes(label) &&
+													!currentLabelsInQuestion.includes(label),
+											"select-idle":
+													currentlySelectedLabels.includes(label) &&
+													!currentLabelsInQuestion.includes(label),
+										  }
+										: {
+												"select-initiated":
+													selectionStatus === "loading" &&
+													currentLabelsInQuestion.includes(label),
+												"select-confirmed":
+													currentlySelectedLabels.includes(label) &&
+													!currentLabelsInQuestion.includes(label),
+											"select-idle":
+													currentlySelectedLabels.includes(label) &&
+													!currentLabelsInQuestion.includes(label),
+										  }),
 									//
-									"select-initiated":
-										selectionStatus === "loading" && currentlySelectedLabels.includes(label),
-									"select-confirmed":
-										selectionStatus === "success" && currentlySelectedLabels.includes(label),
-									"select-idle":
-										selectionStatus === "idle" && currentlySelectedLabels.includes(label),
 								})}
 							>
 								{label}
