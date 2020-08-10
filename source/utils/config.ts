@@ -18,7 +18,7 @@
 // eslint-disable-next-line import/no-cycle
 import { FeatureDescription } from "../Features";
 // eslint-disable-next-line import/no-cycle
-import { SidebarFeatureFromLabels } from "../features/add-grid-for-current-column-label";
+import { SidebarFeatureFromLabels } from "../features/add-custom-label-pickers";
 
 /** TODO LINT disable no-explicit-any */
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -66,10 +66,10 @@ function getDefaultConfig(): Config {
 
 		sidebarFeaturesFromLabels: [
 			{
-				enabled: true,
+				isEnabled: true,
 				title: "Column",
 				labelLayoutType: "grid",
-				// isMultiChoice: false, /** TODO FUTURE */
+				isMultiSelect: false,
 				labels: [
 					"Backlog", //
 					"Grooming",
@@ -84,9 +84,10 @@ function getDefaultConfig(): Config {
 				],
 			},
 			{
-				enabled: true,
+				isEnabled: true,
 				title: "Story points",
 				labelLayoutType: "grid",
+				isMultiSelect: false,
 				labels: [
 					"SP1/2", //
 					"SP1",
@@ -97,9 +98,10 @@ function getDefaultConfig(): Config {
 				],
 			},
 			{
-				enabled: true,
+				isEnabled: true,
 				title: "Priority",
 				labelLayoutType: "grid",
+				isMultiSelect: false,
 				labels: [
 					"P1", //
 					"P2",
@@ -107,9 +109,10 @@ function getDefaultConfig(): Config {
 				],
 			},
 			{
-				enabled: false,
+				isEnabled: false,
 				title: "QA status",
 				labelLayoutType: "grid",
+				isMultiSelect: false,
 				labels: [
 					"QA To Do", //
 					"QA In Progress",
@@ -120,9 +123,10 @@ function getDefaultConfig(): Config {
 				],
 			},
 			{
-				enabled: false,
+				isEnabled: false,
 				title: "Design status",
 				labelLayoutType: "grid",
+				isMultiSelect: false,
 				labels: [
 					"Design To Do", //
 					"Design In Progress",
@@ -132,7 +136,7 @@ function getDefaultConfig(): Config {
 		],
 
 		features: {
-			"add-grid-for-current-column-label": true,
+			"add-custom-label-pickers": true,
 			"always-expand-sidebar": true,
 
 			/**
