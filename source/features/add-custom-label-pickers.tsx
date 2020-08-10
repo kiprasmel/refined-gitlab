@@ -2,8 +2,6 @@
 /* eslint-disable @typescript-eslint/camelcase */
 import React from "react";
 
-import "./add-custom-label-pickers.scss";
-
 // eslint-disable-next-line import/no-cycle
 import { Feature, features } from "../Features";
 // eslint-disable-next-line import/no-cycle
@@ -30,7 +28,10 @@ export const addCustomLabelPickers: Feature = async ({ sidebarFeaturesFromLabels
 	console.log("window.location", window.location, document.location);
 
 	/** TODO */
-	const projectId: string = document.querySelectorAll(`[data-project-id]`)[0].attributes["data-project-id"].value!;
+	const projectId: number = parseInt(
+		document.querySelectorAll(`[data-project-id]`)[0].attributes["data-project-id"].value!,
+		10
+	);
 
 	console.log("projectId", projectId);
 
@@ -58,7 +59,7 @@ export const addCustomLabelPickers: Feature = async ({ sidebarFeaturesFromLabels
 				projectId={projectId}
 				issueIid={(issueIid as unknown) as number}
 				title={title}
-				availableLabels={labels}
+				allowedLabels={labels}
 				isMultiSelect={isMultiSelect}
 			/>
 		);
