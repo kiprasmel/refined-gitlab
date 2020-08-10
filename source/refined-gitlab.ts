@@ -6,7 +6,7 @@ import "./styles/default.scss";
 import "./styles/cluster.scss";
 
 /** leggo */
-import "./features/add-grid-for-current-column-label";
+import "./features/add-custom-label-pickers";
 import "./features/always-expand-sidebar";
 
 globalInit();
