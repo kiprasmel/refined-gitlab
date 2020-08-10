@@ -61,7 +61,7 @@ export const resetConfig = (): Config => {
 function getDefaultConfig(): Config {
 	return {
 		configVersion: "0",
-		hostUrl: "https://bucket.digitalarsenal.net", // "<YOUR_GITLAB_HOST_URL>", /** TODO FIXME - why are there errors if the url is without `https?://` ? */
+		hostUrl: "https://gitlab.com", // "<YOUR_GITLAB_HOST_URL>", /** TODO FIXME - why are there errors if the url is without `https?://` ? */
 		apiToken: "<YOUR_GITLAB_API_TOKEN>" /** TODO provide link to get the API token @ popup */,
 
 		sidebarFeaturesFromLabels: [
