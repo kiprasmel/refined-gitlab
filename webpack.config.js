@@ -35,7 +35,12 @@ module.exports = {
 					// 	// module: "es2015",
 					// },
 				},
-				exclude: /node_modules/,
+				exclude: {
+					or: [
+						/node_modules/, //
+						// /gitbeaker/, /** cannot ignore lmao */
+					],
+				},
 			},
 			/** https://webpack.js.org/loaders/postcss-loader/ */
 			{
@@ -55,7 +60,7 @@ module.exports = {
 		],
 	},
 	plugins: [
-		new SizePlugin(),
+		new SizePlugin({}),
 		new CopyWebpackPlugin({
 			patterns: [
 				{
