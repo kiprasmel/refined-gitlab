@@ -40,7 +40,7 @@ const fetchIssueLabels = async (projectId: number, issueIid: number): Promise<st
 const useCurrentlySelectedLabels = (
 	projectId: number, //
 	issueIid: number,
-	availableLabels: string[]
+	allowedLabels: string[]
 ) => {
 	const [currentlySelectedLabels, __setCurrentlySelectedLabels] = useState<string[]>([]);
 
@@ -50,12 +50,7 @@ const useCurrentlySelectedLabels = (
 		(async (): Promise<void> => {
 			try {
 				const labels: string[] = await fetchIssueLabels(projectId, issueIid);
-				const matchingLabels: string[] = labels.filter((label: string) => availableLabels.includes(label));
-
-				if (!matchingLabels?.length) {
-					/** TODO */
-					throw new Error("TODO - no matching labels lmao");
-				}
+				const matchingLabels: string[] = labels.filter((label: string) => allowedLabels.includes(label));
 
 				__setCurrentlySelectedLabels(matchingLabels);
 				console.log("currentlySelectedLabels", currentlySelectedLabels);
@@ -114,7 +109,7 @@ interface Props {
 	projectId: number;
 	issueIid: number;
 	title: string;
-	availableLabels: string[];
+	allowedLabels: string[];
 	isMultiSelect: boolean;
 }
 
@@ -123,12 +118,12 @@ export const CustomLabelPicker: FC<Props> = ({
 	issueIid = -1,
 	isMultiSelect = false,
 	title = "",
-	availableLabels = [],
+	allowedLabels = [],
 }) => {
 	const { currentlySelectedLabels, setCurrentlySelectedLabels, selectionStatus } = useCurrentlySelectedLabels(
 		projectId,
 		issueIid,
-		availableLabels
+		allowedLabels
 	);
 
 	const handleLabelChange = async (
@@ -165,27 +160,27 @@ export const CustomLabelPicker: FC<Props> = ({
 
 			<div className="cluster">
 				<ul className="story-point-label-grid">
-					{currentlySelectedLabels.map((label) => (
-						<li key={label}>
+					{allowedLabels.map((allowedLabel) => (
+						<li key={allowedLabel}>
 							<button
 								type="button"
-								data-x-label={label}
+								data-x-label={allowedLabel}
 								// eslint-disable-next-line @typescript-eslint/explicit-function-return-type
-								onClick={async (e) => await handleLabelChange(label, e)}
+								onClick={async (e) => await handleLabelChange(allowedLabel, e)}
 								// className="btn story-point-label-grid__list-item-button"
 
 								className={cx("btn story-point-label-grid__list-item-button", {
 									"cursor-loading": selectionStatus === "loading",
 									//
 									"select-initiated":
-										selectionStatus === "loading" && currentlySelectedLabels.includes(label),
+										selectionStatus === "loading" && currentlySelectedLabels.includes(allowedLabel),
 									"select-confirmed":
-										selectionStatus === "success" && currentlySelectedLabels.includes(label),
+										selectionStatus === "success" && currentlySelectedLabels.includes(allowedLabel),
 									"select-idle":
-										selectionStatus === "idle" && currentlySelectedLabels.includes(label),
+										selectionStatus === "idle" && currentlySelectedLabels.includes(allowedLabel),
 								})}
 							>
-								{label}
+								{allowedLabel}
 							</button>
 						</li>
 					))}
