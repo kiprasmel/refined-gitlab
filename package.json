@@ -6,7 +6,9 @@
 	"typings": "dist/index.d.ts",
 	"license": "MIT",
 	"scripts": {
-		"dev": "yarn watch",
+		"dev": "yarn run-p dev:*",
+		"dev:src": "yarn watch",
+		"dev:ext": "web-ext run --source-dir ./distribution/ --firefox=\"$(command -v firefox || command -v firefox-developer-edition)\" --args=\"--new-tab=\"https://gitlab.com/kiprasmel/refined-gitlab/-/issues/1/\"\"",
 		"postinstall": "bash ./postinstall.bash",
 		"lint": "run-p lint:*",
 		"lint:js": "xo",

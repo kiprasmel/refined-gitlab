@@ -3,15 +3,17 @@ import React from "react";
 // eslint-disable-next-line import/no-cycle
 import { Feature, features } from "../Features";
 // eslint-disable-next-line import/no-cycle
-import { CustomLabelPicker } from "../components/CustomLabelPicker";
+import { CustomLabelPicker } from "../components/CustomLabelPicker/CustomLabelPicker";
 import { renderNextTo } from "../utils/renderNextTo";
+
+export type LabelLayoutType = "grid" | "select";
 
 export interface SidebarFeatureFromLabels {
 	title: string;
 	isEnabled: boolean;
-	labelLayoutType: "grid" | "select";
 	isMultiSelect: boolean;
 	labels: string[];
+	labelLayoutType: LabelLayoutType;
 }
 
 export const addCustomLabelPickers: Feature = async ({ sidebarFeaturesFromLabels }) => {
@@ -43,6 +45,7 @@ export const addCustomLabelPickers: Feature = async ({ sidebarFeaturesFromLabels
 		labels = [],
 		isEnabled = true,
 		isMultiSelect = false,
+		labelLayoutType = "grid",
 	} of sidebarFeaturesFromLabels.reverse()) {
 		if (!isEnabled) {
 			continue;
@@ -57,6 +60,7 @@ export const addCustomLabelPickers: Feature = async ({ sidebarFeaturesFromLabels
 				issueIid={(issueIid as unknown) as number}
 				title={title}
 				allowedLabels={labels}
+				labelLayoutType={labelLayoutType}
 				isMultiSelect={isMultiSelect}
 			/>
 		);
