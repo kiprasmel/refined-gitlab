@@ -21,7 +21,7 @@ class Features {
 		return [...this.__addedFeatures];
 	}
 
-	loadAll(): void {
+	async loadAll(): Promise<void> {
 		const config = getConfig();
 
 		for (const { id, feature, waitForDomLoaded } of this.getAll()) {
@@ -32,11 +32,11 @@ class Features {
 
 			try {
 				if (waitForDomLoaded) {
-					(async () => {
-						await domLoaded;
-						feature(config);
-						console.log(`✅ (⏱) feature loaded (after dom loaded), id: \`${id}\``);
-					})();
+					// (async () => {
+					await domLoaded;
+					feature(config);
+					console.log(`✅ (⏱) feature loaded (after dom loaded), id: \`${id}\``);
+					// })();
 				} else {
 					feature(config);
 					console.log(`✅ feature loaded (instantly), id: \`${id}\``);

@@ -11,6 +11,12 @@ import {
 
 export const exists = (selector: string) => Boolean(document.querySelector(selector));
 
+export const isGitlab = (): boolean =>
+	!!(
+		document.querySelectorAll(`[property="og:site_name"]`)[0]?.attributes?.getNamedItem("content")?.value ===
+		"GitLab"
+	);
+
 export const is404 = (): boolean => document.title === "Not Found";
 
 // export const is500 = (): boolean => document.title === ""
