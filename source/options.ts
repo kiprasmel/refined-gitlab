@@ -1,4 +1,4 @@
-import optionsStorage from "./options-storage";
+import optionsStorage from "./background/options-storage";
 
 optionsStorage.syncForm("#options-form");
 

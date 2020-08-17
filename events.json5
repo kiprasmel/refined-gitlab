@@ -1,0 +1,648 @@
+[
+	{
+		"project_id": 2844,
+		"action_name": "commented on",
+		"target_id": 1095943,
+		"target_iid": 1095943,
+		"target_type": "DiscussionNote",
+		"author_id": 957,
+		"target_title": "feat: create a script to automate a part of creating a release",
+		"created_at": "2020-08-18T12:45:06.787Z",
+		"note": {
+			"id": 1095943,
+			"type": "DiscussionNote",
+			"body": "> What about feature flags? Hmm, haven't had to deal with them yet - what's missing here? > This also will be kinda redundant once we implement proper deployments via gitlab api from the pipeline :) Indeed yes - this is hopefully the precursor c: ",
+			"attachment": null,
+			"author": {
+				"id": 957,
+				"name": "Kipras Melnikovas",
+				"username": "kipras",
+				"state": "active",
+				"avatar_url": "https: //bucket.digitalarsenal.net/uploads/-/system/user/avatar/957/avatar.png",
+				"web_url": "https://bucket.digitalarsenal.net/kipras"
+			},
+			"created_at": "2020-08-18T12:45:06.540Z",
+			"updated_at": "2020-08-18T12:45:23.312Z",
+			"system": false,
+			"noteable_id": 80962,
+			"noteable_type": "MergeRequest",
+			"resolvable": true,
+			"resolved": false,
+			"resolved_by": null,
+			"confidential": false,
+			"noteable_iid": 288,
+			"commands_changes": {}
+		},
+		"author": {
+			"id": 957,
+			"name": "Kipras Melnikovas",
+			"username": "kipras",
+			"state": "active",
+			"avatar_url": "https://bucket.digitalarsenal.net/uploads/-/system/user/avatar/957/avatar.png",
+			"web_url": "https://bucket.digitalarsenal.net/kipras"
+		},
+		"author_username": "kipras"
+	},
+	{
+		"project_id": 3229,
+		"action_name": "commented on",
+		"target_id": 1095923,
+		"target_iid": 1095923,
+		"target_type": "Note",
+		"author_id": 957,
+		"target_title": "fix: add feature flags to .env on release",
+		"created_at": "2020-08-18T12:43:02.013Z",
+		"note": {
+			"id": 1095923,
+			"type": null,
+			"body": ":white_check_mark:",
+			"attachment": null,
+			"author": {
+				"id": 957,
+				"name": "Kipras Melnikovas",
+				"username": "kipras",
+				"state": "active",
+				"avatar_url": "https://bucket.digitalarsenal.net/uploads/-/system/user/avatar/957/avatar.png",
+				"web_url": "https://bucket.digitalarsenal.net/kipras"
+			},
+			"created_at": "2020-08-18T12:43:01.662Z",
+			"updated_at": "2020-08-18T12:43:01.662Z",
+			"system": false,
+			"noteable_id": 85008,
+			"noteable_type": "MergeRequest",
+			"resolvable": false,
+			"confidential": false,
+			"noteable_iid": 517,
+			"commands_changes": {}
+		},
+		"author": {
+			"id": 957,
+			"name": "Kipras Melnikovas",
+			"username": "kipras",
+			"state": "active",
+			"avatar_url": "https://bucket.digitalarsenal.net/uploads/-/system/user/avatar/957/avatar.png",
+			"web_url": "https://bucket.digitalarsenal.net/kipras"
+		},
+		"author_username": "kipras"
+	},
+	{
+		"project_id": 2840,
+		"action_name": "pushed to",
+		"target_id": null,
+		"target_iid": null,
+		"target_type": null,
+		"author_id": 957,
+		"target_title": null,
+		"created_at": "2020-08-18T12:40:01.583Z",
+		"author": {
+			"id": 957,
+			"name": "Kipras Melnikovas",
+			"username": "kipras",
+			"state": "active",
+			"avatar_url": "https://bucket.digitalarsenal.net/uploads/-/system/user/avatar/957/avatar.png",
+			"web_url": "https://bucket.digitalarsenal.net/kipras"
+		},
+		"push_data": {
+			"commit_count": 1,
+			"action": "pushed",
+			"ref_type": "branch",
+			"commit_from": "f12a5548593fe6df16bdffa9576e0fae71d334f1",
+			"commit_to": "f21b5884a19be13b2fd3220023fe14d4079404b3",
+			"ref": "docs/fully-document-deployment-process",
+			"commit_title": "docs: fully document the deployment process @ CONTRIBUTING",
+			"ref_count": null
+		},
+		"author_username": "kipras"
+	},
+	{
+		"project_id": 2840,
+		"action_name": "pushed to",
+		"target_id": null,
+		"target_iid": null,
+		"target_type": null,
+		"author_id": 957,
+		"target_title": null,
+		"created_at": "2020-08-18T12:39:43.614Z",
+		"author": {
+			"id": 957,
+			"name": "Kipras Melnikovas",
+			"username": "kipras",
+			"state": "active",
+			"avatar_url": "https://bucket.digitalarsenal.net/uploads/-/system/user/avatar/957/avatar.png",
+			"web_url": "https://bucket.digitalarsenal.net/kipras"
+		},
+		"push_data": {
+			"commit_count": 1,
+			"action": "pushed",
+			"ref_type": "branch",
+			"commit_from": "34f45b3d56a8f4acac09f488b7bb05ad83bb151c",
+			"commit_to": "f12a5548593fe6df16bdffa9576e0fae71d334f1",
+			"ref": "docs/fully-document-deployment-process",
+			"commit_title": "docs: fully document the deployment process @ CONTRIBUTING",
+			"ref_count": null
+		},
+		"author_username": "kipras"
+	},
+	{
+		"project_id": 2840,
+		"action_name": "commented on",
+		"target_id": 1095906,
+		"target_iid": 1095906,
+		"target_type": "Note",
+		"author_id": 957,
+		"target_title": "docs: fully document the deployment process @ CONTRIBUTING",
+		"created_at": "2020-08-18T12:39:25.928Z",
+		"note": {
+			"id": 1095906,
+			"type": null,
+			"body": "/cc @front-nord 👀",
+			"attachment": null,
+			"author": {
+				"id": 957,
+				"name": "Kipras Melnikovas",
+				"username": "kipras",
+				"state": "active",
+				"avatar_url": "https://bucket.digitalarsenal.net/uploads/-/system/user/avatar/957/avatar.png",
+				"web_url": "https://bucket.digitalarsenal.net/kipras"
+			},
+			"created_at": "2020-08-18T12:39:25.554Z",
+			"updated_at": "2020-08-18T12:39:25.554Z",
+			"system": false,
+			"noteable_id": 85012,
+			"noteable_type": "MergeRequest",
+			"resolvable": false,
+			"confidential": false,
+			"noteable_iid": 523,
+			"commands_changes": {}
+		},
+		"author": {
+			"id": 957,
+			"name": "Kipras Melnikovas",
+			"username": "kipras",
+			"state": "active",
+			"avatar_url": "https://bucket.digitalarsenal.net/uploads/-/system/user/avatar/957/avatar.png",
+			"web_url": "https://bucket.digitalarsenal.net/kipras"
+		},
+		"author_username": "kipras"
+	},
+	{
+		"project_id": 2840,
+		"action_name": "opened",
+		"target_id": 85012,
+		"target_iid": 523,
+		"target_type": "MergeRequest",
+		"author_id": 957,
+		"target_title": "docs: fully document the deployment process @ CONTRIBUTING",
+		"created_at": "2020-08-18T12:37:48.480Z",
+		"author": {
+			"id": 957,
+			"name": "Kipras Melnikovas",
+			"username": "kipras",
+			"state": "active",
+			"avatar_url": "https://bucket.digitalarsenal.net/uploads/-/system/user/avatar/957/avatar.png",
+			"web_url": "https://bucket.digitalarsenal.net/kipras"
+		},
+		"author_username": "kipras"
+	},
+	{
+		"project_id": 2840,
+		"action_name": "pushed new",
+		"target_id": null,
+		"target_iid": null,
+		"target_type": null,
+		"author_id": 957,
+		"target_title": null,
+		"created_at": "2020-08-18T12:36:07.646Z",
+		"author": {
+			"id": 957,
+			"name": "Kipras Melnikovas",
+			"username": "kipras",
+			"state": "active",
+			"avatar_url": "https://bucket.digitalarsenal.net/uploads/-/system/user/avatar/957/avatar.png",
+			"web_url": "https://bucket.digitalarsenal.net/kipras"
+		},
+		"push_data": {
+			"commit_count": 1,
+			"action": "created",
+			"ref_type": "branch",
+			"commit_from": null,
+			"commit_to": "34f45b3d56a8f4acac09f488b7bb05ad83bb151c",
+			"ref": "docs/fully-document-deployment-process",
+			"commit_title": "docs: fully document the deployment process @ CONTRIBUTING",
+			"ref_count": null
+		},
+		"author_username": "kipras"
+	},
+	{
+		"project_id": 2844,
+		"action_name": "commented on",
+		"target_id": 1095554,
+		"target_iid": 1095554,
+		"target_type": "DiffNote",
+		"author_id": 957,
+		"target_title": "fix: provide correct URLs to testing/staging environments",
+		"created_at": "2020-08-18T11:41:54.278Z",
+		"note": {
+			"id": 1095554,
+			"type": "DiffNote",
+			"body": "Not sure about the `production` environment though.",
+			"attachment": null,
+			"author": {
+				"id": 957,
+				"name": "Kipras Melnikovas",
+				"username": "kipras",
+				"state": "active",
+				"avatar_url": "https://bucket.digitalarsenal.net/uploads/-/system/user/avatar/957/avatar.png",
+				"web_url": "https://bucket.digitalarsenal.net/kipras"
+			},
+			"created_at": "2020-08-18T11:41:54.021Z",
+			"updated_at": "2020-08-18T11:41:54.021Z",
+			"system": false,
+			"noteable_id": 85002,
+			"noteable_type": "MergeRequest",
+			"position": {
+				"base_sha": "e0c8f8c448c0d926ad71bbacb0107d668a27cc7d",
+				"start_sha": "e0c8f8c448c0d926ad71bbacb0107d668a27cc7d",
+				"head_sha": "a84cdcb4f82f0e18f51dec21491a081a4c507dec",
+				"old_path": ".gitlab/ci/deploy.gitlab-ci.yml",
+				"new_path": ".gitlab/ci/deploy.gitlab-ci.yml",
+				"position_type": "text",
+				"old_line": 45,
+				"new_line": 45,
+				"line_range": {
+					"start": {
+						"line_code": "cc741bc027e46e615048a87ee8643baa35918b8e_45_45",
+						"type": null,
+						"old_line": 45,
+						"new_line": 45
+					},
+					"end": {
+						"line_code": "cc741bc027e46e615048a87ee8643baa35918b8e_45_45",
+						"type": null,
+						"old_line": 45,
+						"new_line": 45
+					}
+				}
+			},
+			"resolvable": true,
+			"resolved": false,
+			"resolved_by": null,
+			"confidential": false,
+			"noteable_iid": 323,
+			"commands_changes": {}
+		},
+		"author": {
+			"id": 957,
+			"name": "Kipras Melnikovas",
+			"username": "kipras",
+			"state": "active",
+			"avatar_url": "https://bucket.digitalarsenal.net/uploads/-/system/user/avatar/957/avatar.png",
+			"web_url": "https://bucket.digitalarsenal.net/kipras"
+		},
+		"author_username": "kipras"
+	},
+	{
+		"project_id": 2844,
+		"action_name": "commented on",
+		"target_id": 1095548,
+		"target_iid": 1095548,
+		"target_type": "Note",
+		"author_id": 957,
+		"target_title": "fix: provide correct URLs to testing/staging environments",
+		"created_at": "2020-08-18T11:41:10.874Z",
+		"note": {
+			"id": 1095548,
+			"type": null,
+			"body": "/cc @front-nord @ernest.rekel @Deividas 👀",
+			"attachment": null,
+			"author": {
+				"id": 957,
+				"name": "Kipras Melnikovas",
+				"username": "kipras",
+				"state": "active",
+				"avatar_url": "https://bucket.digitalarsenal.net/uploads/-/system/user/avatar/957/avatar.png",
+				"web_url": "https://bucket.digitalarsenal.net/kipras"
+			},
+			"created_at": "2020-08-18T11:41:10.639Z",
+			"updated_at": "2020-08-18T11:41:10.639Z",
+			"system": false,
+			"noteable_id": 85002,
+			"noteable_type": "MergeRequest",
+			"resolvable": false,
+			"confidential": false,
+			"noteable_iid": 323,
+			"commands_changes": {}
+		},
+		"author": {
+			"id": 957,
+			"name": "Kipras Melnikovas",
+			"username": "kipras",
+			"state": "active",
+			"avatar_url": "https://bucket.digitalarsenal.net/uploads/-/system/user/avatar/957/avatar.png",
+			"web_url": "https://bucket.digitalarsenal.net/kipras"
+		},
+		"author_username": "kipras"
+	},
+	{
+		"project_id": 2844,
+		"action_name": "opened",
+		"target_id": 85002,
+		"target_iid": 323,
+		"target_type": "MergeRequest",
+		"author_id": 957,
+		"target_title": "fix: provide correct URLs to testing/staging environments",
+		"created_at": "2020-08-18T11:40:44.872Z",
+		"author": {
+			"id": 957,
+			"name": "Kipras Melnikovas",
+			"username": "kipras",
+			"state": "active",
+			"avatar_url": "https://bucket.digitalarsenal.net/uploads/-/system/user/avatar/957/avatar.png",
+			"web_url": "https://bucket.digitalarsenal.net/kipras"
+		},
+		"author_username": "kipras"
+	},
+	{
+		"project_id": 2844,
+		"action_name": "pushed new",
+		"target_id": null,
+		"target_iid": null,
+		"target_type": null,
+		"author_id": 957,
+		"target_title": null,
+		"created_at": "2020-08-18T11:40:28.080Z",
+		"author": {
+			"id": 957,
+			"name": "Kipras Melnikovas",
+			"username": "kipras",
+			"state": "active",
+			"avatar_url": "https://bucket.digitalarsenal.net/uploads/-/system/user/avatar/957/avatar.png",
+			"web_url": "https://bucket.digitalarsenal.net/kipras"
+		},
+		"push_data": {
+			"commit_count": 1,
+			"action": "created",
+			"ref_type": "branch",
+			"commit_from": null,
+			"commit_to": "a84cdcb4f82f0e18f51dec21491a081a4c507dec",
+			"ref": "fix/correct-urls-for-environments",
+			"commit_title": "fix: provide correct URLs to testing/staging environments",
+			"ref_count": null
+		},
+		"author_username": "kipras"
+	},
+	{
+		"project_id": 2844,
+		"action_name": "commented on",
+		"target_id": 1095384,
+		"target_iid": 1095384,
+		"target_type": "Note",
+		"author_id": 957,
+		"target_title": "feat: create a script to automate a part of creating a release",
+		"created_at": "2020-08-18T11:18:56.365Z",
+		"note": {
+			"id": 1095384,
+			"type": null,
+			"body": "/cc @front-nord @Deividas @ernest.rekel 👀",
+			"attachment": null,
+			"author": {
+				"id": 957,
+				"name": "Kipras Melnikovas",
+				"username": "kipras",
+				"state": "active",
+				"avatar_url": "https://bucket.digitalarsenal.net/uploads/-/system/user/avatar/957/avatar.png",
+				"web_url": "https://bucket.digitalarsenal.net/kipras"
+			},
+			"created_at": "2020-08-18T11:18:56.109Z",
+			"updated_at": "2020-08-18T11:18:56.109Z",
+			"system": false,
+			"noteable_id": 80962,
+			"noteable_type": "MergeRequest",
+			"resolvable": false,
+			"confidential": false,
+			"noteable_iid": 288,
+			"commands_changes": {}
+		},
+		"author": {
+			"id": 957,
+			"name": "Kipras Melnikovas",
+			"username": "kipras",
+			"state": "active",
+			"avatar_url": "https://bucket.digitalarsenal.net/uploads/-/system/user/avatar/957/avatar.png",
+			"web_url": "https://bucket.digitalarsenal.net/kipras"
+		},
+		"author_username": "kipras"
+	},
+	{
+		"project_id": 2844,
+		"action_name": "opened",
+		"target_id": 84991,
+		"target_iid": 322,
+		"target_type": "MergeRequest",
+		"author_id": 957,
+		"target_title": "Bump @nord/ucp.client to 2.65.0",
+		"created_at": "2020-08-18T11:15:53.661Z",
+		"author": {
+			"id": 957,
+			"name": "Kipras Melnikovas",
+			"username": "kipras",
+			"state": "active",
+			"avatar_url": "https://bucket.digitalarsenal.net/uploads/-/system/user/avatar/957/avatar.png",
+			"web_url": "https://bucket.digitalarsenal.net/kipras"
+		},
+		"author_username": "kipras"
+	},
+	{
+		"project_id": 2844,
+		"action_name": "pushed new",
+		"target_id": null,
+		"target_iid": null,
+		"target_type": null,
+		"author_id": 957,
+		"target_title": null,
+		"created_at": "2020-08-18T11:15:43.652Z",
+		"author": {
+			"id": 957,
+			"name": "Kipras Melnikovas",
+			"username": "kipras",
+			"state": "active",
+			"avatar_url": "https://bucket.digitalarsenal.net/uploads/-/system/user/avatar/957/avatar.png",
+			"web_url": "https://bucket.digitalarsenal.net/kipras"
+		},
+		"push_data": {
+			"commit_count": 1,
+			"action": "created",
+			"ref_type": "branch",
+			"commit_from": null,
+			"commit_to": "0617230975dc5f83df6ed76d4fe6fc06c2fb0ab1",
+			"ref": "nord-ucp-client-nord/ucp-client2-65-0",
+			"commit_title": "Bump @nord/ucp.client to 2.65.0",
+			"ref_count": null
+		},
+		"author_username": "kipras"
+	},
+	{
+		"project_id": 2844,
+		"action_name": "pushed to",
+		"target_id": null,
+		"target_iid": null,
+		"target_type": null,
+		"author_id": 957,
+		"target_title": null,
+		"created_at": "2020-08-18T11:15:11.373Z",
+		"author": {
+			"id": 957,
+			"name": "Kipras Melnikovas",
+			"username": "kipras",
+			"state": "active",
+			"avatar_url": "https://bucket.digitalarsenal.net/uploads/-/system/user/avatar/957/avatar.png",
+			"web_url": "https://bucket.digitalarsenal.net/kipras"
+		},
+		"push_data": {
+			"commit_count": 1,
+			"action": "pushed",
+			"ref_type": "branch",
+			"commit_from": "911644f9ced704ccbf4ef41d5ddb4b94833b051f",
+			"commit_to": "a7fcd2ad7661c1b31847ce64266e9f69d2afb4a3",
+			"ref": "feat/create-canary-release-script",
+			"commit_title": "feat: create a script to automate a part of creating a release",
+			"ref_count": null
+		},
+		"author_username": "kipras"
+	},
+	{
+		"project_id": 2844,
+		"action_name": "pushed to",
+		"target_id": null,
+		"target_iid": null,
+		"target_type": null,
+		"author_id": 957,
+		"target_title": null,
+		"created_at": "2020-08-18T11:08:46.191Z",
+		"author": {
+			"id": 957,
+			"name": "Kipras Melnikovas",
+			"username": "kipras",
+			"state": "active",
+			"avatar_url": "https://bucket.digitalarsenal.net/uploads/-/system/user/avatar/957/avatar.png",
+			"web_url": "https://bucket.digitalarsenal.net/kipras"
+		},
+		"push_data": {
+			"commit_count": 1,
+			"action": "pushed",
+			"ref_type": "branch",
+			"commit_from": "136fdd984385b5b4e4c6cdea988c1297ed743b60",
+			"commit_to": "911644f9ced704ccbf4ef41d5ddb4b94833b051f",
+			"ref": "feat/create-canary-release-script",
+			"commit_title": "feat: create a script to automate a part of creating a release",
+			"ref_count": null
+		},
+		"author_username": "kipras"
+	},
+	{
+		"project_id": 2844,
+		"action_name": "pushed to",
+		"target_id": null,
+		"target_iid": null,
+		"target_type": null,
+		"author_id": 957,
+		"target_title": null,
+		"created_at": "2020-08-18T11:07:29.914Z",
+		"author": {
+			"id": 957,
+			"name": "Kipras Melnikovas",
+			"username": "kipras",
+			"state": "active",
+			"avatar_url": "https://bucket.digitalarsenal.net/uploads/-/system/user/avatar/957/avatar.png",
+			"web_url": "https://bucket.digitalarsenal.net/kipras"
+		},
+		"push_data": {
+			"commit_count": 1,
+			"action": "pushed",
+			"ref_type": "branch",
+			"commit_from": "ced22613dd7c41928a412ef1759657ac17908bf5",
+			"commit_to": "136fdd984385b5b4e4c6cdea988c1297ed743b60",
+			"ref": "feat/create-canary-release-script",
+			"commit_title": "feat: create a script to automate a part of creating a release",
+			"ref_count": null
+		},
+		"author_username": "kipras"
+	},
+	{
+		"project_id": 2840,
+		"action_name": "deleted",
+		"target_id": null,
+		"target_iid": null,
+		"target_type": null,
+		"author_id": 957,
+		"target_title": null,
+		"created_at": "2020-08-18T10:48:35.441Z",
+		"author": {
+			"id": 957,
+			"name": "Kipras Melnikovas",
+			"username": "kipras",
+			"state": "active",
+			"avatar_url": "https://bucket.digitalarsenal.net/uploads/-/system/user/avatar/957/avatar.png",
+			"web_url": "https://bucket.digitalarsenal.net/kipras"
+		},
+		"push_data": {
+			"commit_count": 0,
+			"action": "removed",
+			"ref_type": "branch",
+			"commit_from": "5be79c0096c9269a5b17932d2801b4ca997901e2",
+			"commit_to": null,
+			"ref": "fix/hide-activated-ip-on-smartdns",
+			"commit_title": null,
+			"ref_count": null
+		},
+		"author_username": "kipras"
+	},
+	{
+		"project_id": 2840,
+		"action_name": "pushed to",
+		"target_id": null,
+		"target_iid": null,
+		"target_type": null,
+		"author_id": 957,
+		"target_title": null,
+		"created_at": "2020-08-18T10:48:33.211Z",
+		"author": {
+			"id": 957,
+			"name": "Kipras Melnikovas",
+			"username": "kipras",
+			"state": "active",
+			"avatar_url": "https://bucket.digitalarsenal.net/uploads/-/system/user/avatar/957/avatar.png",
+			"web_url": "https://bucket.digitalarsenal.net/kipras"
+		},
+		"push_data": {
+			"commit_count": 2,
+			"action": "pushed",
+			"ref_type": "branch",
+			"commit_from": "40cae22205cebc7b4802aef616d6c72a9ed01abf",
+			"commit_to": "e4ff433f9b329766182e79a090514ede4d813391",
+			"ref": "master",
+			"commit_title": "Merge branch 'fix/hide-activated-ip-on-smartdns' into 'master'",
+			"ref_count": null
+		},
+		"author_username": "kipras"
+	},
+	{
+		"project_id": 2840,
+		"action_name": "accepted",
+		"target_id": 84641,
+		"target_iid": 518,
+		"target_type": "MergeRequest",
+		"author_id": 957,
+		"target_title": "fix: hide activated IP on SmartDNS",
+		"created_at": "2020-08-18T10:48:33.121Z",
+		"author": {
+			"id": 957,
+			"name": "Kipras Melnikovas",
+			"username": "kipras",
+			"state": "active",
+			"avatar_url": "https://bucket.digitalarsenal.net/uploads/-/system/user/avatar/957/avatar.png",
+			"web_url": "https://bucket.digitalarsenal.net/kipras"
+		},
+		"author_username": "kipras"
+	}
+]

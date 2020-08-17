@@ -13,7 +13,7 @@ export interface FeatureDescription {
 class Features {
 	private __addedFeatures: FeatureDescription[] = [];
 
-	add(ctx: FeatureDescription) {
+	add(ctx: FeatureDescription): void {
 		this.__addedFeatures.push(ctx);
 	}
 

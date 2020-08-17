@@ -61,8 +61,15 @@ export const resetConfig = (): Config => {
 function getDefaultConfig(): Config {
 	return {
 		configVersion: "0",
+		// hostUrl: "https://gitlab.com", // "<YOUR_GITLAB_HOST_URL>", /** TODO FIXME - why are there errors if the url is without `https?://` ? */
+		// apiToken: "<YOUR_GITLAB_API_TOKEN>" /** TODO provide link to get the API token @ popup */,
+
 		hostUrl: "https://gitlab.com", // "<YOUR_GITLAB_HOST_URL>", /** TODO FIXME - why are there errors if the url is without `https?://` ? */
-		apiToken: "<YOUR_GITLAB_API_TOKEN>" /** TODO provide link to get the API token @ popup */,
+		// apiToken: "invalid_lmao",
+		apiToken: "pwM9sxnr3889yYU1j8x1" /** TODO provide link to get the API token @ popup */,
+
+		// hostUrl: "https://bucket.digitalarsenal.net", // "<YOUR_GITLAB_HOST_URL>", /** TODO FIXME - why are there errors if the url is without `https?://` ? */
+		// apiToken: "QkAACpGN-YhggqG4pyoQ" /** TODO provide link to get the API token @ popup */,
 
 		sidebarFeaturesFromLabels: [
 			{

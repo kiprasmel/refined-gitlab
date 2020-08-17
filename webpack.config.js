@@ -11,9 +11,11 @@ module.exports = {
 	devtool: "source-map",
 	stats: "errors-only",
 	entry: {
-		background: "./source/background.ts",
+		background: "./source/background/background.ts",
+		"cookie-sync": "./source/background/cookie-sync.ts",
 		options: "./source/options.ts",
 		index: "./source/index.ts",
+		"update-api": "./source/update-api.ts",
 	},
 	output: {
 		path: path.join(__dirname, "distribution"),
@@ -67,7 +69,7 @@ module.exports = {
 					from: "**/*",
 					context: "source",
 					globOptions: {
-						ignore: ["*.js"],
+						ignore: ["*.js", ".ts", ".tsx"],
 					},
 				},
 				{

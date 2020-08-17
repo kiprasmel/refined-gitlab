@@ -1,4 +1,5 @@
 import { features } from "../Features";
+import { getCSRFData } from "./getCSRFData";
 import { isGitlab } from "./pageDetect";
 
 export const globalInit = (): void => {
@@ -11,6 +12,8 @@ export const globalInit = (): void => {
 		console.log("[Refined GitLab] This ain't GitLab - we'll cancell ourselves now.");
 		return;
 	}
+
+	getCSRFData();
 
 	features.loadAll();
 

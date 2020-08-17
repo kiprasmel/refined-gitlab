@@ -7,7 +7,18 @@ import { getConfig } from "./config";
  * https://github.com/jdalrymple/gitbeaker
  */
 
-export const api = new Gitlab({
-	token: getConfig().apiToken,
-	host: getConfig().hostUrl,
-});
+export const createApi = (token = getConfig().apiToken, host = getConfig().hostUrl) => {
+	console.log("creating API with", { token, host });
+
+	return new Gitlab({
+		oauthToken: token,
+		host,
+	});
+};
+
+// eslint-disable-next-line import/no-mutable-exports, prefer-const
+let api = createApi();
+
+/** --- */
+
+export { api };
