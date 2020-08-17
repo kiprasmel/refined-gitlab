@@ -16,7 +16,7 @@ export type SidebarFeatureFromLabels = {
 	labelLayoutType: LabelLayoutType;
 };
 
-export const addCustomLabelPickers: Feature = async ({ sidebarFeaturesFromLabels }) => {
+export const addCustomLabelPickers: Feature = ({ sidebarFeaturesFromLabels }) => {
 	if (!/\/issues\/\d+/.test(window.location.href)) {
 		/** TODO handle @ `Features` */
 		console.log("- skipping feature because wrong page");
