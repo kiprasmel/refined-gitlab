@@ -7,6 +7,10 @@ import "./CustomLabelPicker.scss";
 
 // eslint-disable-next-line import/no-cycle
 import { api } from "../utils/api";
+// eslint-disable-next-line import/no-cycle
+import { SelectionStatusIndicator } from "./SelectionStatusIndicator";
+// eslint-disable-next-line import/no-cycle
+import { LabelLayoutType, SidebarFeatureFromLabels } from "../features/add-custom-label-pickers";
 
 type LabelUpdateIntent = "add" | "replace" | "remove";
 
@@ -43,27 +47,27 @@ const fetchIssueLabels = async (projectId: number, issueIid: number): Promise<st
 	return (res.labels as string[]) ?? [];
 };
 
+export type SelectionStatus = "idle" | "loading" | "success" | "error";
+
 // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
 const useCurrentlySelectedLabels = (
 	projectId: number, //
 	issueIid: number,
-	allowedLabels: string[]
+	labels: string[]
 ) => {
 	const [currentlySelectedLabels, __setCurrentlySelectedLabels] = useState<string[]>([]);
 
 	const [currentLabelsInQuestion, setCurrentLabelsInQuestion] = useState<string[]>([]);
-	const [selectionStatuses, setSelectionStatuses] = useState<
-		Record<string, "idle" | "loading" | "success" | "error">
-	>();
+	const [selectionStatuses, setSelectionStatuses] = useState<Record<string, SelectionStatus>>();
 
 	const findMatchingLabelsFor = (labels: string[]): string[] =>
-		labels.filter((label: string) => allowedLabels.includes(label));
+		labels.filter((label: string) => labels.includes(label));
 
 	useEffect(() => {
 		(async (): Promise<void> => {
 			try {
-				const labels: string[] = await fetchIssueLabels(projectId, issueIid);
-				const matchingLabels: string[] = findMatchingLabelsFor(labels);
+				const fetchedLabels: string[] = await fetchIssueLabels(projectId, issueIid);
+				const matchingLabels: string[] = findMatchingLabelsFor(fetchedLabels);
 
 				__setCurrentlySelectedLabels(matchingLabels);
 			} catch (e) {
@@ -111,7 +115,7 @@ const useCurrentlySelectedLabels = (
 					 * only happens in the single-select component variation
 					 * (in multi select, things are always expressed via `add` & `replace`)
 					 */
-					remove_labels: allowedLabels.filter((l) => l !== labelInQuestion), // currentlySelectedLabels, // currentlySelectedLabels[0],
+					remove_labels: labels.filter((l) => l !== labelInQuestion), // currentlySelectedLabels, // currentlySelectedLabels[0],
 					add_labels: labelInQuestion,
 				});
 
@@ -128,42 +132,12 @@ const useCurrentlySelectedLabels = (
 		}
 	};
 
-	return { currentlySelectedLabels, setCurrentlySelectedLabels, selectionStatuses, currentLabelsInQuestion };
-};
-
-interface Props {
-	projectId: number;
-	issueIid: number;
-	title: string;
-	allowedLabels: string[];
-	isMultiSelect: boolean;
-}
-
-export const CustomLabelPicker: FC<Props> = ({
-	projectId = -1,
-	issueIid = -1,
-	isMultiSelect = false,
-	title = "",
-	allowedLabels = [],
-}) => {
-	const {
-		currentlySelectedLabels, //
-		setCurrentlySelectedLabels,
-		selectionStatuses,
-		currentLabelsInQuestion,
-	} = useCurrentlySelectedLabels(projectId, issueIid, allowedLabels);
-
-	const handleLabelChange = async (newLabel: string): Promise<void> => {
-		const intent: LabelUpdateIntent = determineLabelUpdateIntent(newLabel, currentlySelectedLabels, isMultiSelect);
-		await setCurrentlySelectedLabels(newLabel, intent);
-	};
-
 	/**
 	 * TODO
 	 * hacky but works; we'll refactor later
 	 */
 	// eslint-disable-next-line @typescript-eslint/explicit-function-return-type
-	const determineSelectionStatus = () => {
+	const determineSelectionStatus = (): SelectionStatus => {
 		const vals = Object.values(selectionStatuses ?? {});
 
 		if (vals.some((v) => v === "error")) {
@@ -181,6 +155,41 @@ export const CustomLabelPicker: FC<Props> = ({
 
 	const selectionStatus = determineSelectionStatus();
 
+	return {
+		currentlySelectedLabels, //
+		setCurrentlySelectedLabels,
+		selectionStatuses,
+		selectionStatus,
+		currentLabelsInQuestion,
+	};
+};
+
+export type CustomPickerProps = SidebarFeatureFromLabels & {
+	projectId: number;
+	issueIid: number;
+	labelLayoutType: LabelLayoutType;
+};
+
+export const CustomLabelPicker: FC<CustomPickerProps> = ({
+	projectId = -1,
+	issueIid = -1,
+	isMultiSelect = false,
+	labelLayoutType = "grid",
+	title = "",
+	labels = [],
+}) => {
+	const {
+		currentlySelectedLabels, //
+		setCurrentlySelectedLabels,
+		selectionStatus,
+		currentLabelsInQuestion,
+	} = useCurrentlySelectedLabels(projectId, issueIid, labels);
+
+	const handleLabelChange = async (newLabel: string): Promise<void> => {
+		const intent: LabelUpdateIntent = determineLabelUpdateIntent(newLabel, currentlySelectedLabels, isMultiSelect);
+		await setCurrentlySelectedLabels(newLabel, intent);
+	};
+
 	return (
 		<div
 			className={cx({
@@ -189,47 +198,64 @@ export const CustomLabelPicker: FC<Props> = ({
 		>
 			<div className="title hide-collapsed">
 				{title}{" "}
-				{selectionStatus === "loading" ? (
-					<span title="Updating">🔁</span>
-				) : selectionStatus === "success" || selectionStatus === "idle" ? (
-					currentlySelectedLabels.length ? (
-						<span title="Column successfully selected">✅</span>
-					) : (
-						<span title="No column selected">–</span>
-					)
-				) : (
-					<span title="Something went wrong (perhaps the wifi is gone?) - check the console & report the issue">
-						❌
-					</span>
-				)}
+				<SelectionStatusIndicator
+					selectionStatus={selectionStatus}
+					hasElements={!!currentlySelectedLabels.length}
+				/>
 			</div>
 
 			<div className="cluster">
-				<ul className="story-point-label-grid">
-					{allowedLabels.map((label) => (
-						<li key={label}>
-							<button
-								type="button"
-								data-x-label={label}
-								onClick={async (): Promise<void> => await handleLabelChange(label)}
-								className={cx("btn story-point-label-grid__list-item-button", {
-									"cursor-loading": selectionStatus === "loading" && !isMultiSelect,
+				{labelLayoutType === "grid" ? (
+					<ul className="story-point-label-grid">
+						{labels.map((label) => (
+							<li key={label}>
+								<button
+									type="button"
+									data-x-label={label}
+									onClick={async (): Promise<void> => await handleLabelChange(label)}
+									className={cx("btn story-point-label-grid__list-item-button", {
+										"cursor-loading": selectionStatus === "loading" && !isMultiSelect,
 
-									"select-initiated":
-										selectionStatus === "loading" && currentLabelsInQuestion.includes(label),
-									"select-confirmed":
-										currentlySelectedLabels.includes(label) &&
-										!currentLabelsInQuestion.includes(label),
-									"select-idle":
-										currentlySelectedLabels.includes(label) &&
-										!currentLabelsInQuestion.includes(label),
-								})}
+										"select-initiated":
+											selectionStatus === "loading" && currentLabelsInQuestion.includes(label),
+										"select-confirmed":
+											currentlySelectedLabels.includes(label) &&
+											!currentLabelsInQuestion.includes(label),
+										"select-idle":
+											currentlySelectedLabels.includes(label) &&
+											!currentLabelsInQuestion.includes(label),
+									})}
+								>
+									{label}
+								</button>
+							</li>
+						))}
+					</ul>
+				) : labelLayoutType === "select" ? (
+					<select
+						defaultValue={isMultiSelect ? currentlySelectedLabels : currentlySelectedLabels[0]}
+						multiple={isMultiSelect}
+						onChange={async (e): Promise<void> => await handleLabelChange(e.target.value)}
+					>
+						<option
+							key=""
+							value=""
+							aria-label="not selected"
+							data-x-label=""
+							selected={!currentlySelectedLabels.length}
+						/>
+						{labels.map((label) => (
+							<option
+								key={label} //
+								value={label}
+								data-x-label={label}
+								selected={currentlySelectedLabels.includes(label)}
 							>
 								{label}
-							</button>
-						</li>
-					))}
-				</ul>
+							</option>
+						))}
+					</select>
+				) : null}
 			</div>
 		</div>
 	);

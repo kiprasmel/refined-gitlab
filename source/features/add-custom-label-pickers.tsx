@@ -6,13 +6,15 @@ import { Feature, features } from "../Features";
 import { CustomLabelPicker } from "../components/CustomLabelPicker";
 import { renderNextTo } from "../utils/renderNextTo";
 
-export interface SidebarFeatureFromLabels {
+export type LabelLayoutType = "grid" | "select";
+
+export type SidebarFeatureFromLabels = {
 	title: string;
 	isEnabled: boolean;
-	labelLayoutType: "grid" | "select";
-	isMultiSelect: boolean;
 	labels: string[];
-}
+	isMultiSelect: boolean;
+	labelLayoutType: LabelLayoutType;
+};
 
 export const addCustomLabelPickers: Feature = async ({ sidebarFeaturesFromLabels }) => {
 	if (!/\/issues\/\d+/.test(window.location.href)) {
@@ -43,6 +45,7 @@ export const addCustomLabelPickers: Feature = async ({ sidebarFeaturesFromLabels
 		labels = [],
 		isEnabled = true,
 		isMultiSelect = false,
+		labelLayoutType = "grid",
 	} of sidebarFeaturesFromLabels.reverse()) {
 		if (!isEnabled) {
 			continue;
@@ -53,10 +56,12 @@ export const addCustomLabelPickers: Feature = async ({ sidebarFeaturesFromLabels
 			`ayyy-lmao-${title}`,
 			["block"] /** TODO FIXME (should receive from the thing we tryna render) */,
 			<CustomLabelPicker
+				isEnabled={isEnabled}
 				projectId={projectId}
 				issueIid={(issueIid as unknown) as number}
 				title={title}
-				allowedLabels={labels}
+				labels={labels}
+				labelLayoutType={labelLayoutType}
 				isMultiSelect={isMultiSelect}
 			/>
 		);
