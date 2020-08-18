@@ -1,4 +1,5 @@
 import { features } from "../Features";
+import { isGitlab } from "./pageDetect";
 
 export const globalInit = (): void => {
 	if ((window as any).hasRun) {
@@ -6,7 +7,12 @@ export const globalInit = (): void => {
 	}
 	(window as any).hasRun = true;
 
+	if (!isGitlab()) {
+		console.log("[Refined GitLab] This ain't GitLab - we'll cancell ourselves now.");
+		return;
+	}
+
 	features.loadAll();
 
-	console.log("refined-gitlab loaded!", new Date().toISOString());
+	console.log("[Refined GitLab] Loaded!", new Date().toISOString());
 };
