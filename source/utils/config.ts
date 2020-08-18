@@ -66,8 +66,8 @@ function getDefaultConfig(): Config {
 
 		sidebarFeaturesFromLabels: [
 			{
-				isEnabled: true,
 				title: "Column",
+				isEnabled: true,
 				labelLayoutType: "grid",
 				isMultiSelect: false,
 				labels: [
@@ -84,8 +84,8 @@ function getDefaultConfig(): Config {
 				],
 			},
 			{
-				isEnabled: true,
 				title: "Story points",
+				isEnabled: true,
 				labelLayoutType: "grid",
 				isMultiSelect: false,
 				labels: [
@@ -98,8 +98,8 @@ function getDefaultConfig(): Config {
 				],
 			},
 			{
-				isEnabled: true,
 				title: "Priority",
+				isEnabled: true,
 				labelLayoutType: "grid",
 				isMultiSelect: false,
 				labels: [
@@ -109,8 +109,8 @@ function getDefaultConfig(): Config {
 				],
 			},
 			{
-				isEnabled: false,
 				title: "QA status",
+				isEnabled: false,
 				labelLayoutType: "grid",
 				isMultiSelect: false,
 				labels: [
@@ -123,8 +123,8 @@ function getDefaultConfig(): Config {
 				],
 			},
 			{
-				isEnabled: false,
 				title: "Design status",
+				isEnabled: false,
 				labelLayoutType: "grid",
 				isMultiSelect: false,
 				labels: [
@@ -134,12 +134,12 @@ function getDefaultConfig(): Config {
 				],
 			},
 			{
-				isEnabled: true,
 				title: "Other commons",
+				isEnabled: true,
 				labelLayoutType: "grid",
 				isMultiSelect: true,
 				labels: [
-					"Techical", //
+					"Technical", //
 					"Research",
 					"Blocked",
 					"Core Dep",
