@@ -1,14 +1,21 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, FC } from "react";
 
 import { Feature, features } from "../Features";
 import { api } from "../utils/api";
+import { isContributionGraph } from "../utils/pageDetect";
 import { renderNextTo } from "../utils/renderNextTo";
 
 export const showTotalCommitCount: Feature = (config) => {
+	if (!isContributionGraph()) {
+		/** TODO handle @ `Features` */
+		console.log("- skipping feature because wrong page");
+		return;
+	}
+
 	/** TODO FIXME */
 	const { username } = config;
 
-	const reactComponent = () => {
+	const reactComponent: FC = () => {
 		const [commitCount, setCommitCount] = useState<number>(0);
 
 		useEffect(() => {
@@ -27,6 +34,6 @@ export const showTotalCommitCount: Feature = (config) => {
 
 features.add({
 	id: "show-total-commit-count",
-	feature: changeBackgroundColor,
+	feature: showTotalCommitCount,
 	waitForDomLoaded: true,
 });

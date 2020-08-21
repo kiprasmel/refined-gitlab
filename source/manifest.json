@@ -12,19 +12,32 @@
 		}
 	},
 	"icons": {},
-	"permissions": ["storage"],
+	"permissions": [
+		"storage",
+		"cookies",
+		"tabs",
+		"<all_urls>"
+	],
 	"options_ui": {
 		"chrome_style": true,
 		"page": "options.html"
 	},
 	"background": {
-		"persistent": false,
-		"scripts": ["browser-polyfill.min.js", "background.js"]
+		"scripts": [
+			"browser-polyfill.min.js",
+			"background.js",
+			"cookie-sync.js"
+		]
 	},
 	"content_scripts": [
 		{
-			"matches": ["<all_urls>"],
-			"js": ["index.js"]
+			"matches": [
+				"<all_urls>"
+			],
+			"js": [
+				"index.js",
+				"update-api.js"
+			]
 		}
 	]
 }

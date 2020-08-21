@@ -1,5 +1,6 @@
 import select from "select-dom";
 
+// import "./utils/api";
 import { globalInit } from "./utils/globalInit";
 
 import "./styles/default.scss";
@@ -8,6 +9,7 @@ import "./styles/cluster.scss";
 /** leggo */
 import "./features/add-custom-label-pickers";
 import "./features/always-expand-sidebar";
+import "./features/show-total-commit-count";
 
 globalInit();
 
