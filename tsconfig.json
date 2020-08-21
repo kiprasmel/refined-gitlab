@@ -2,7 +2,7 @@
 	"extends": "@sindresorhus/tsconfig",
 	"compilerOptions": {
 		"module": "esnext",
-		"target": "es5",
+		"target": "es6",
 		"lib": ["dom", "esnext"],
 		// "target": "esnext",
 		"declaration": false,
