@@ -1,4 +1,5 @@
 import React from "react";
+import JSONEditor from "jsoneditor";
 
 // eslint-disable-next-line import/no-cycle
 import { Feature, features } from "../Features";
@@ -40,6 +41,8 @@ export const addCustomLabelPickers: Feature = async ({ sidebarFeaturesFromLabels
 
 	console.log("issueIid", issueIid);
 
+	new JSONEditor(document.querySelector(".labels"), { mode: "tree" });
+
 	for (const {
 		title = "", //
 		labels = [],
@@ -55,15 +58,17 @@ export const addCustomLabelPickers: Feature = async ({ sidebarFeaturesFromLabels
 			".labels",
 			`ayyy-lmao-${title}`,
 			["block"] /** TODO FIXME (should receive from the thing we tryna render) */,
-			<CustomLabelPicker
-				isEnabled={isEnabled}
-				projectId={projectId}
-				issueIid={(issueIid as unknown) as number}
-				title={title}
-				labels={labels}
-				labelLayoutType={labelLayoutType}
-				isMultiSelect={isMultiSelect}
-			/>
+			<>
+				<CustomLabelPicker
+					isEnabled={isEnabled}
+					projectId={projectId}
+					issueIid={(issueIid as unknown) as number}
+					title={title}
+					labels={labels}
+					labelLayoutType={labelLayoutType}
+					isMultiSelect={isMultiSelect}
+				/>
+			</>
 		);
 	}
 };
