@@ -24,3 +24,5 @@ export const is404 = (): boolean => document.title === "Not Found";
 export const isIssue = (): boolean => /\/issues\/\d+/.test(getCleanPathname());
 
 export const isBoard = (): boolean => /\/boards\/\d+/.test(getCleanPathname());
+
+export const isContributionGraph = (): boolean => !!document.querySelectorAll(".contrib-calendar").length;

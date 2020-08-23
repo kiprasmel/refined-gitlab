@@ -17,6 +17,14 @@ export type SidebarFeatureFromLabels = {
 };
 
 export const addCustomLabelPickers: Feature = async ({ sidebarFeaturesFromLabels }) => {
+	// try {
+	// 	const cookies = await browser.cookies.getAll({ url: window.location.href });
+	// 	console.log("COOKIES FFS", cookies);
+	// } catch (e) {
+	// 	console.error(e);
+	// 	throw e;
+	// }
+
 	if (!/\/issues\/\d+/.test(window.location.href)) {
 		/** TODO handle @ `Features` */
 		console.log("- skipping feature because wrong page");
@@ -54,7 +62,8 @@ export const addCustomLabelPickers: Feature = async ({ sidebarFeaturesFromLabels
 		renderNextTo(
 			".labels",
 			`ayyy-lmao-${title}`,
-			["block"] /** TODO FIXME (should receive from the thing we tryna render) */,
+			/** TODO FIXME (should receive from the thing we tryna render) */
+			["block"],
 			<CustomLabelPicker
 				isEnabled={isEnabled}
 				projectId={projectId}
@@ -72,4 +81,5 @@ features.add({
 	id: "add-custom-label-pickers",
 	feature: addCustomLabelPickers,
 	waitForDomLoaded: true,
+	needsApi: true,
 });

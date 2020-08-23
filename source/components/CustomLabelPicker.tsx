@@ -37,14 +37,14 @@ const determineLabelUpdateIntent = (
 		}
 	}
 
-	console.log("intent", intent);
+	console.log("intent", intent, { newLabel, currentlySelectedLabels, isMultiSelect });
 
 	return intent;
 };
 
 const fetchIssueLabels = async (projectId: number, issueIid: number): Promise<string[]> => {
 	const res = await api.Issues.show(projectId, issueIid);
-	return (res.labels as string[]) ?? [];
+	return ((res as any).labels as string[]) ?? [];
 };
 
 export type SelectionStatus = "idle" | "loading" | "success" | "error";
@@ -53,7 +53,7 @@ export type SelectionStatus = "idle" | "loading" | "success" | "error";
 const useCurrentlySelectedLabels = (
 	projectId: number, //
 	issueIid: number,
-	labels: string[]
+	allowedLabels: string[]
 ) => {
 	const [currentlySelectedLabels, __setCurrentlySelectedLabels] = useState<string[]>([]);
 
@@ -61,7 +61,7 @@ const useCurrentlySelectedLabels = (
 	const [selectionStatuses, setSelectionStatuses] = useState<Record<string, SelectionStatus>>();
 
 	const findMatchingLabelsFor = (labels: string[]): string[] =>
-		labels.filter((label: string) => labels.includes(label));
+		labels.filter((label: string) => allowedLabels.includes(label));
 
 	useEffect(() => {
 		(async (): Promise<void> => {
@@ -115,7 +115,7 @@ const useCurrentlySelectedLabels = (
 					 * only happens in the single-select component variation
 					 * (in multi select, things are always expressed via `add` & `replace`)
 					 */
-					remove_labels: labels.filter((l) => l !== labelInQuestion), // currentlySelectedLabels, // currentlySelectedLabels[0],
+					remove_labels: allowedLabels.filter((l) => l !== labelInQuestion), // currentlySelectedLabels, // currentlySelectedLabels[0],
 					add_labels: labelInQuestion,
 				});
 

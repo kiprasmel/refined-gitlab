@@ -11,9 +11,8 @@ module.exports = {
 	devtool: "source-map",
 	stats: "errors-only",
 	entry: {
-		background: "./source/background.ts",
-		options: "./source/options.ts",
-		index: "./source/index.ts",
+		background: "./source/scripts-background/background.ts",
+		content: "./source/scripts-content/content.ts",
 	},
 	output: {
 		path: path.join(__dirname, "distribution"),
@@ -28,7 +27,7 @@ module.exports = {
 				test: /\.(js|ts|tsx)$/,
 				loader: "ts-loader",
 				options: {
-					transpileOnly: true /** TODO FUTURE `false` */,
+					transpileOnly: false /** TODO FUTURE `false` */,
 
 					// compilerOptions: {
 					// 	// Enables ModuleConcatenation. It must be in here to avoid conflict with ts-node when it runs this file
@@ -67,7 +66,7 @@ module.exports = {
 					from: "**/*",
 					context: "source",
 					globOptions: {
-						ignore: ["*.js"],
+						ignore: ["*.js", ".jsx", ".ts", ".tsx"],
 					},
 				},
 				{
