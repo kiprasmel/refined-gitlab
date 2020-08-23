@@ -1,9 +1,13 @@
-import optionsStorage from "./options-storage";
+import optionsStorage from "./scripts-background/options-storage";
 
 optionsStorage.syncForm("#options-form");
 
-const rangeInputs = [...document.querySelectorAll('input[type="range"][name^="color"]')];
-const numberInputs = [...document.querySelectorAll('input[type="number"][name^="color"]')];
+// eslint-disable-next-line @typescript-eslint/ban-ts-ignore
+// @ts-ignore
+const rangeInputs = [...document.querySelectorAll<HTMLInputElement>('input[type="range"][name^="color"]')];
+// eslint-disable-next-line @typescript-eslint/ban-ts-ignore
+// @ts-ignore
+const numberInputs = [...document.querySelectorAll<HTMLInputElement>('input[type="number"][name^="color"]')];
 const output = document.querySelector(".color-output");
 
 function updateColor(): void {

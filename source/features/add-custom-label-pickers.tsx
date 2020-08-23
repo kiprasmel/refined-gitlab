@@ -72,4 +72,5 @@ features.add({
 	id: "add-custom-label-pickers",
 	feature: addCustomLabelPickers,
 	waitForDomLoaded: true,
+	needsApi: true,
 });
