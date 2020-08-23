@@ -1,7 +1,7 @@
 {
 	"manifest_version": 2,
 	"name": "Refined GitLab",
-	"version": "0.0.0",
+	"version": "0.0.1",
 	"description": "🏷 Make your GitLab experience better!",
 	"homepage_url": "https://gitlab.com/kiprasmel/refined-gitlab",
 	"minimum_chrome_version": "74",

@@ -25,7 +25,11 @@ yarn install
 
 > wait a bit. This will install the dependencies & clone git submodules
 
-Inside [./source/utils/config.ts](./source/utils/config.ts) add your gitlab's `host URL` & `API token` (found at `<gitlab_host>/profile/personal_access_tokens`) with scopes `api` & `read_api`);
+Some features need the API. Either
+
+a) be logged-in to gitlab, or
+
+b) provider a custom API token - inside [./source/utils/config.ts](./source/utils/config.ts) add your gitlab's `host URL` & `API token` (found at `<gitlab_host>/profile/personal_access_tokens`) with scopes `api` & `read_api`);
 
 then:
 
@@ -124,7 +128,7 @@ export const showTotalCommitCount: Feature = (config) => {
 features.add({
 	id: "show-total-commit-count",
 	feature: changeBackgroundColor,
-	waitForDomLoaded: true,
+	**waitForDom**Loaded: true,
 });
 
 ``` -->

@@ -66,7 +66,13 @@ module.exports = {
 					from: "**/*",
 					context: "source",
 					globOptions: {
-						ignore: ["*.js", ".jsx", ".ts", ".tsx"],
+						ignore: [
+							"**/*.js", //
+							"**/*.ts",
+							"**/*.tsx",
+							"**/*.css",
+							"**/*.scss",
+						],
 					},
 				},
 				{
@@ -76,14 +82,28 @@ module.exports = {
 		}),
 	],
 	optimization: {
+		/** https://github.com/sindresorhus/refined-github/blob/master/webpack.config.ts */
+		// Automatically enabled on production;
+		// Keeps it somewhat readable for AMO reviewers
 		minimizer: [
 			new TerserPlugin({
+				parallel: true,
+				exclude: "browser-polyfill.min.js", // https://github.com/sindresorhus/refined-github/pull/3451
 				terserOptions: {
 					mangle: false,
-					compress: false,
+					compress: {
+						defaults: false,
+						dead_code: true,
+						unused: true,
+						arguments: true,
+						join_vars: false,
+						booleans: false,
+						expression: false,
+						sequences: false,
+					},
 					output: {
 						beautify: true,
-						indent_level: 2, // eslint-disable-line @typescript-eslint/camelcase
+						indent_level: 2,
 					},
 				},
 			}),
