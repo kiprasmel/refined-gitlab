@@ -19,6 +19,7 @@
 import { FeatureDescription } from "../Features";
 // eslint-disable-next-line import/no-cycle
 import { SidebarFeatureFromLabels } from "../features/add-custom-label-pickers";
+import { AuthKind } from "./api";
 
 /** TODO LINT disable no-explicit-any */
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -29,10 +30,9 @@ export interface FeatureConfig {
 	config?: FeatureConfigConfig;
 }
 
-export interface Config {
+export type Config<_AuthKind extends AuthKind = AuthKind> = {
 	configVersion: string;
-	hostUrl: string | RegExp;
-	apiToken: string;
+	authKind: _AuthKind;
 
 	/** feature configs leggo */
 	sidebarFeaturesFromLabels: SidebarFeatureFromLabels[];
@@ -41,7 +41,14 @@ export interface Config {
 	// // features: { [key: FeatureDescription["id"]]: FeatureConfig};
 	// // features: { [key: string]:  boolean | FeatureConfig};
 	features: Record<FeatureDescription["id"], boolean>;
-}
+} & (_AuthKind extends "native"
+	? {}
+	: _AuthKind extends "apiToken"
+	? {
+			hostUrl: string;
+			apiToken: string;
+	  }
+	: {});
 
 /** Stored somewhere, probably as stringified JSON, or perhaps a js object instead? */
 let config: Config = getDefaultConfig();
@@ -59,10 +66,11 @@ export const resetConfig = (): Config => {
 };
 
 function getDefaultConfig(): Config {
-	return {
+	const authKind: AuthKind = "native";
+
+	const defaultConfig: Config<typeof authKind> = {
 		configVersion: "0",
-		hostUrl: "https://gitlab.com", // "<YOUR_GITLAB_HOST_URL>", /** TODO FIXME - why are there errors if the url is without `https?://` ? */
-		apiToken: "<YOUR_GITLAB_API_TOKEN>" /** TODO provide link to get the API token @ popup */,
+		authKind,
 
 		sidebarFeaturesFromLabels: [
 			{
@@ -171,4 +179,6 @@ function getDefaultConfig(): Config {
 		// 	},
 		// ],
 	};
+
+	return defaultConfig;
 }

@@ -1,12 +1,40 @@
 {
-	"extends": "@sindresorhus/tsconfig",
 	"compilerOptions": {
+		// "baseUrl": ".",
+		// "outDir": "",
 		"module": "esnext",
 		"target": "es6",
-		"lib": ["dom", "esnext"],
-		// "target": "esnext",
-		"declaration": false,
-		"esModuleInterop": true
+		"lib": [
+			"es6", //
+			"dom",
+			"esnext"
+		],
+		"sourceMap": true,
+		"allowJs": true,
+		"jsx": "react",
+		"moduleResolution": "node",
+		"rootDir": "src",
+		"forceConsistentCasingInFileNames": true,
+		"noImplicitReturns": true,
+		"noImplicitThis": true,
+		"noImplicitAny": false /** TODO true */,
+		"strictNullChecks": true,
+		"suppressImplicitAnyIndexErrors": true,
+		"noUnusedLocals": true,
+		"skipLibCheck": true,
+		"esModuleInterop": true,
+		"allowSyntheticDefaultImports": true
 	},
-	"include": ["source"]
+	"include": [
+		"source" //
+	],
+	"exclude": [
+		"node_modules",
+		"build",
+		"scripts",
+		"acceptance-tests",
+		"webpack",
+		"jest",
+		"src/setupTests.ts"
+	]
 }
