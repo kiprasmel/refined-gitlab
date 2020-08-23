@@ -1,0 +1,3 @@
+#!/usr/bin/env bash
+
+echo `curl -L --cookie "_gitlab_session=6a1f0b1ae67d0ad611b70b209545f4ad" "https://bucket.digitalarsenal.net/users/kipras/calendar.json"` > calendar.json && node -e 'console.log(JSON.stringify((Object.entries(require("./calendar.json")).sort(([keyA], [keyB]) => new Date(keyA) - new Date(keyB)))))' > calendar_sorted.json && node -e 'console.log(Object.values(require("./calendar_sorted.json")).reduce((acc, curr) => acc + curr[1], 0))'
