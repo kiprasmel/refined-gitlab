@@ -55,6 +55,8 @@ const useCurrentlySelectedLabels = (
 	issueIid: number,
 	allowedLabels: string[]
 ) => {
+	const [isFetchingLabels, setIsFetchingLabels] = useState<boolean>(false);
+
 	const [currentlySelectedLabels, __setCurrentlySelectedLabels] = useState<string[]>([]);
 
 	const [currentLabelsInQuestion, setCurrentLabelsInQuestion] = useState<string[]>([]);
@@ -66,10 +68,13 @@ const useCurrentlySelectedLabels = (
 	useEffect(() => {
 		(async (): Promise<void> => {
 			try {
+				setIsFetchingLabels(true);
+
 				const fetchedLabels: string[] = await fetchIssueLabels(projectId, issueIid);
 				const matchingLabels: string[] = findMatchingLabelsFor(fetchedLabels);
 
 				__setCurrentlySelectedLabels(matchingLabels);
+				setIsFetchingLabels(false);
 			} catch (e) {
 				console.error(e);
 			}
@@ -138,6 +143,10 @@ const useCurrentlySelectedLabels = (
 	 */
 	// eslint-disable-next-line @typescript-eslint/explicit-function-return-type
 	const determineSelectionStatus = (): SelectionStatus => {
+		if (isFetchingLabels) {
+			return "loading";
+		}
+
 		const vals = Object.values(selectionStatuses ?? {});
 
 		if (vals.some((v) => v === "error")) {
@@ -156,6 +165,7 @@ const useCurrentlySelectedLabels = (
 	const selectionStatus = determineSelectionStatus();
 
 	return {
+		isFetchingLabels,
 		currentlySelectedLabels, //
 		setCurrentlySelectedLabels,
 		selectionStatuses,
@@ -179,6 +189,7 @@ export const CustomLabelPicker: FC<CustomPickerProps> = ({
 	labels = [],
 }) => {
 	const {
+		isFetchingLabels,
 		currentlySelectedLabels, //
 		setCurrentlySelectedLabels,
 		selectionStatus,
@@ -200,6 +211,7 @@ export const CustomLabelPicker: FC<CustomPickerProps> = ({
 				{title}{" "}
 				<SelectionStatusIndicator
 					selectionStatus={selectionStatus}
+					isInitializing={isFetchingLabels}
 					hasElements={!!currentlySelectedLabels.length}
 				/>
 			</div>

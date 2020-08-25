@@ -34,6 +34,8 @@ export type Config<_AuthKind extends AuthKind = AuthKind> = {
 	configVersion: string;
 	authKind: _AuthKind;
 
+	loadingIndicatorCyclingSpeedMs?: number;
+
 	/** feature configs leggo */
 	sidebarFeaturesFromLabels: SidebarFeatureFromLabels[];
 
@@ -71,6 +73,8 @@ function getDefaultConfig(): Config {
 	const defaultConfig: Config<typeof authKind> = {
 		configVersion: "0",
 		authKind,
+
+		loadingIndicatorCyclingSpeedMs: Math.ceil(1000 / 60 /** 60 FPS (~58.82 after Math.ceil) */),
 
 		sidebarFeaturesFromLabels: [
 			{
