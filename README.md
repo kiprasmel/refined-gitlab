@@ -139,6 +139,12 @@ features.add({
 
 - [refined-gitlab-playground](https://gitlab.com/kiprasmel/refined-gitlab-playground) project ID on gitlab: `20690630`
 
-## V. License
+
+## V. See also
+
+- [Gitbeaker](https://github.com/jdalrymple/gitbeaker/) - GitLab's API wrapper we use here & often contribute to.
+- [Figma assets](https://www.figma.com/file/PyOJIJOClNV2dZs4QWU7Pa/Refined-GitLab)
+
+## VI. License
 
 MIT © [Kipras Melnikovas](https://gitlab.com/kiprasmel)
