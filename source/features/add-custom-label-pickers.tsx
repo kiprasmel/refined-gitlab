@@ -1,10 +1,11 @@
 import React from "react";
 
+import select from "select-dom";
 // eslint-disable-next-line import/no-cycle
 import { Feature, features } from "../Features";
 // eslint-disable-next-line import/no-cycle
 import { CustomLabelPicker } from "../components/CustomLabelPicker";
-import { renderNextTo } from "../utils/renderNextTo";
+import { renderBefore } from "../utils/render";
 
 export type LabelLayoutType = "grid" | "select";
 
@@ -28,17 +29,22 @@ export const addCustomLabelPickers: Feature = async ({ sidebarFeaturesFromLabels
 	/** TODO */
 	const projectId: number = parseInt(
 		// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-		document.querySelectorAll(`[data-project-id]`)[0].attributes[`data-project-id`].value!,
+		select.all(`[data-project-id]`)[0].attributes[`data-project-id`].value!,
 		10
 	);
-
 	console.log("projectId", projectId);
 
 	/** TODO */
 	// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 	const issueIid: string | number = window.location.href.match(/\/issues\/(\d+)/)?.[1]!;
-
 	console.log("issueIid", issueIid);
+
+	const theNodeWeRenderItemsBefore = select(".labels")?.nextElementSibling;
+	console.log("theNodeWeRenderItemsBefore", theNodeWeRenderItemsBefore);
+
+	if (!theNodeWeRenderItemsBefore) {
+		throw new Error("Cannot render label pickers - the `$('.labels')[0].nextElementSibling` was falsy");
+	}
 
 	for (const {
 		title = "", //
@@ -46,15 +52,13 @@ export const addCustomLabelPickers: Feature = async ({ sidebarFeaturesFromLabels
 		isEnabled = true,
 		isMultiSelect = false,
 		labelLayoutType = "grid",
-	} of sidebarFeaturesFromLabels.reverse()) {
+	} of sidebarFeaturesFromLabels) {
 		if (!isEnabled) {
 			continue;
 		}
 
-		renderNextTo(
-			".labels",
-			`ayyy-lmao-${title}`,
-			["block"] /** TODO FIXME (should receive from the thing we tryna render) */,
+		renderBefore(
+			theNodeWeRenderItemsBefore,
 			<CustomLabelPicker
 				isEnabled={isEnabled}
 				projectId={projectId}
@@ -63,7 +67,10 @@ export const addCustomLabelPickers: Feature = async ({ sidebarFeaturesFromLabels
 				labels={labels}
 				labelLayoutType={labelLayoutType}
 				isMultiSelect={isMultiSelect}
-			/>
+			/>,
+			{
+				rootNodeClassName: "block",
+			}
 		);
 	}
 };
