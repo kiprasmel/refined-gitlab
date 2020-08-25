@@ -2,15 +2,21 @@ import React, { FC } from "react";
 
 // eslint-disable-next-line import/no-cycle
 import { SelectionStatus } from "./CustomLabelPicker";
+import { LoadingIndicator } from "./LoadingIndicator";
 
 interface Props {
 	selectionStatus: SelectionStatus;
+	isInitializing: boolean;
 	hasElements: boolean;
 }
 
-export const SelectionStatusIndicator: FC<Props> = ({ selectionStatus, hasElements }) => (
+export const SelectionStatusIndicator: FC<Props> = ({ selectionStatus, isInitializing, hasElements }) => (
 	<>
-		{selectionStatus === "loading" ? (
+		{isInitializing ? (
+			<span title="Initializing">
+				<LoadingIndicator />
+			</span>
+		) : selectionStatus === "loading" ? (
 			<span title="Updating">🔁</span>
 		) : selectionStatus === "success" || selectionStatus === "idle" ? (
 			hasElements ? (

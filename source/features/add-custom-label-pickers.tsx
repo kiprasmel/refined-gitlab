@@ -4,7 +4,7 @@ import React from "react";
 import { Feature, features } from "../Features";
 // eslint-disable-next-line import/no-cycle
 import { CustomLabelPicker } from "../components/CustomLabelPicker";
-import { renderNextTo } from "../utils/renderNextTo";
+import { renderNextToInReverseOrder } from "../utils/render";
 
 export type LabelLayoutType = "grid" | "select";
 
@@ -46,15 +46,13 @@ export const addCustomLabelPickers: Feature = async ({ sidebarFeaturesFromLabels
 		isEnabled = true,
 		isMultiSelect = false,
 		labelLayoutType = "grid",
-	} of sidebarFeaturesFromLabels.reverse()) {
+	} of sidebarFeaturesFromLabels) {
 		if (!isEnabled) {
 			continue;
 		}
 
-		renderNextTo(
+		renderNextToInReverseOrder(
 			".labels",
-			`ayyy-lmao-${title}`,
-			["block"] /** TODO FIXME (should receive from the thing we tryna render) */,
 			<CustomLabelPicker
 				isEnabled={isEnabled}
 				projectId={projectId}
@@ -63,9 +61,43 @@ export const addCustomLabelPickers: Feature = async ({ sidebarFeaturesFromLabels
 				labels={labels}
 				labelLayoutType={labelLayoutType}
 				isMultiSelect={isMultiSelect}
-			/>
+			/>,
+			{
+				extraClassesForRootNode: ["block"],
+			}
 		);
 	}
+
+	// const jsxArr = sidebarFeaturesFromLabels.map(
+	// 	({
+	// 		title = "", //
+	// 		labels = [],
+	// 		isEnabled = true,
+	// 		isMultiSelect = false,
+	// 		labelLayoutType = "grid",
+	// 	}) => {
+	// 		if (!isEnabled) {
+	// 			return null;
+	// 		}
+
+	// 		return (
+	// 			<CustomLabelPicker
+	// 				isEnabled={isEnabled}
+	// 				projectId={projectId}
+	// 				issueIid={(issueIid as unknown) as number}
+	// 				title={title}
+	// 				labels={labels}
+	// 				labelLayoutType={labelLayoutType}
+	// 				isMultiSelect={isMultiSelect}
+	// 				className="block"
+	// 			/>
+	// 		);
+	// 	}
+	// );
+
+	// renderNextToInReverseOrder(".labels", <>{jsxArr}</>, {
+	// 	extraClassesForRootNode: ["block"],
+	// });
 };
 
 features.add({
