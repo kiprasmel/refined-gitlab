@@ -17,10 +17,12 @@
 		"test": "run-s lint:* build",
 		"build": "rm -rf ./distribution && webpack --mode=production",
 		"watch": "webpack --mode=development --watch",
-		"version": "dot-json distribution/manifest.json version $VER",
+		"new-version:git": "yarn version",
+		"new-version:manifest": "dot-json distribution/manifest.json version $(node -e \"console.log(require('./package.json').version)\")",
+		"new-version": "run-s new-version:git new-version:manifest",
 		"release:cws": "webstore upload --source=distribution --auto-publish",
 		"release:amo": "web-ext-submit --source-dir distribution",
-		"release": "VER=$(daily-version) run-s build version release:*"
+		"release": "run-s build new-version release:*"
 	},
 	"dependencies": {
 		"@gitbeaker/browser": "^23.4.2",
