@@ -19,6 +19,7 @@ function injectNativeAuthIntoApi(request, _sender, _sendResponse): void {
 		updateApiVariable({
 			kind: "native",
 			options: {
+				host: window.location.origin,
 				nativeAuth: {
 					gitlabSessionCookieValue: gitlabSessionToken,
 					gitlabCSRFTokenKey,

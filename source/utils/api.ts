@@ -10,6 +10,7 @@ import { NativeAuth as GitbeakerNativeAuth } from "../../gitbeaker/packages/gitb
 export interface NativeAuth {
 	kind: "native";
 	options: {
+		host: string /** use `window.location.origin` (see  https://stackoverflow.com/a/54691801/9285308) */;
 		nativeAuth: GitbeakerNativeAuth;
 	};
 }
