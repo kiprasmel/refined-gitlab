@@ -2,11 +2,12 @@
 
 Much like [refined-github](https://github.com/sindresorhus/refined-github), but for gitlab!
 
-## I. Installation & usage
+## I. Install
 
-WIP. Will be available on the chrome/firefox stores soon™️.
 
-For now - see [II. Try it from a local build 👇](#II-Try-it-from-a-local-build)
+- **Chrome** extension | status = waiting for review 👀
+
+- [**Firefox** add-on <img valign="middle" src="https://img.shields.io/amo/v/refined-gitlab.svg?label=%20">](https://addons.mozilla.org/en-US/firefox/addon/refined-gitlab/)
 
 ## II. Try it from a local build
 
