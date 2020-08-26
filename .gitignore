@@ -4,3 +4,4 @@ distribution
 web-ext-artifacts/
 
 *.log
+.DS_Store

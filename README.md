@@ -74,13 +74,13 @@ done! Note that after shutting down the browser, you'll need to load the extensi
 
 Here is a short overview to get your familiar with how the project works.
 
-In essence, this extension isn't that different from a regular react application 🤷‍♀️ (except it isn't as complex 🚀)
+In essence, this extension isn't that different from a regular react application 🤷‍♀️ (except it isn't as complex ☠️☠️)
 
 We use `react` to render components and handle state logic (hooks included!).
 
 The `source/` directory contains a few core folders - react's `components/`, the extension's `features/`, their `styles/`,  `utils/` and other necessary files.
 
-There are also the `background-scripts/` and `content-scripts/` directories - they hold & import their respective scripts, which are later loaded by the browser, as defined in the `manifest.json` file (which is essential to web extensions - that's where you configure stuff (though you'll rarely touch it, if so).
+There are also the `background-scripts/` and `content-scripts/` directories - they hold & import their respective scripts, which are later loaded by the browser, as defined in the `manifest.json` file (which is essential to web extensions - that's where you configure stuff (though you'll rarely touch it, if so)).
 
 The extension is compiled via webpack into an IIFE, ready for browsers to execute. It's source is imported in [source/scripts-content/refined-gitlab.ts](source/scripts-content/refined-gitlab.ts) and loaded inside [source/utils/globalInit.ts](source/utils/globalInit.ts), where all features get loaded by [source/Features.ts](source/Features.ts). The features end up there by adding themselves into the `Features` array, where, once loaded, get their necessary data and render the resulting JSX.
 
@@ -144,7 +144,7 @@ features.add({
 ## V. See also
 
 - [Gitbeaker](https://github.com/jdalrymple/gitbeaker/) - GitLab's API wrapper we use here & often contribute to.
-- [Figma assets](https://www.figma.com/file/PyOJIJOClNV2dZs4QWU7Pa/Refined-GitLab)
+- [Figma assets](https://www.figma.com/file/PyOJIJOClNV2dZs4QWU7Pa/Refined-GitLab) - icons, feature screenshots etc.
 
 ## VI. License
 
