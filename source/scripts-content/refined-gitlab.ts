@@ -9,6 +9,7 @@ import "../styles/cluster.scss";
 /** leggo */
 import "../features/add-custom-label-pickers";
 import "../features/always-expand-sidebar";
+import "../features/highlight-assign-yourself";
 // import "../features/show-total-commit-count";
 
 globalInit();

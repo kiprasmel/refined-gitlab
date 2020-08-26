@@ -162,6 +162,7 @@ function getDefaultConfig(): Config {
 		features: {
 			"add-custom-label-pickers": true,
 			"always-expand-sidebar": true,
+			"highlight-assign-yourself": true,
 
 			/**
 			 * TODO AUTOMATE
