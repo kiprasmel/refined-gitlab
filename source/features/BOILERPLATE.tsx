@@ -31,8 +31,9 @@ export const BOILERPLATE: Feature = ({}) => {
 };
 
 features.add({
-	id: "add-custom-label-pickers",
+	id: "BOILERPLATE",
 	feature: BOILERPLATE,
 	waitForDomLoaded: true,
+	waitForPageLoaded: true,
 	needsApi: true,
 });
