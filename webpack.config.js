@@ -13,6 +13,7 @@ module.exports = {
 	entry: {
 		background: "./source/scripts-background/background.ts",
 		content: "./source/scripts-content/content.ts",
+		config: "./source/config.ts",
 	},
 	output: {
 		path: path.join(__dirname, "distribution"),

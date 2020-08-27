@@ -16,10 +16,10 @@
  */
 
 // eslint-disable-next-line import/no-cycle
-import { FeatureDescription } from "../Features";
+import { FeatureDescription } from "./Features";
 // eslint-disable-next-line import/no-cycle
-import { SidebarFeatureFromLabels } from "../features/add-custom-label-pickers";
-import { AuthKind } from "./api";
+import { SidebarFeatureFromLabels } from "./features/add-custom-label-pickers";
+import { AuthKind } from "./utils/api";
 
 /** TODO LINT disable no-explicit-any */
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
