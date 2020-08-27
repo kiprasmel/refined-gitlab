@@ -8,24 +8,27 @@ const render = <S extends string | Element = string | Element>(nodeAppender: (se
 	options: {
 		rootNodeId?: string;
 		rootNodeClassName?: string; //
+		rootNode?: HTMLElement;
 	} = {
 		rootNodeId: "",
 		rootNodeClassName: "", //
 	}
 ): void => {
-	const rootNode = document.createElement("div");
+	if (!options.rootNode) {
+		options.rootNode = document.createElement("div");
+	}
 
 	if (options.rootNodeId) {
-		rootNode.id = options.rootNodeId;
+		options.rootNode.id = options.rootNodeId;
 	}
 
 	if (options.rootNodeClassName) {
-		rootNode.classList.add(...options.rootNodeClassName.split(" "));
+		options.rootNode.classList.add(...options.rootNodeClassName.split(" "));
 	}
 
-	nodeAppender(selector, rootNode);
+	nodeAppender(selector, options.rootNode);
 
-	ReactDOM.render(jsxElement, rootNode);
+	ReactDOM.render(jsxElement, options.rootNode);
 };
 
 export const renderBefore = render(appendBefore);
