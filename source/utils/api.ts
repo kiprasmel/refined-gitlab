@@ -31,15 +31,9 @@ export type AuthKind = Auth["kind"];
 let api: ReturnType<typeof createApi>;
 
 // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
-export const createApi = (auth: Auth) => {
-	console.log("createApi, auth =", auth);
-
-	return new Gitlab({ ...auth.options });
-};
+export const createApi = (auth: Auth) => new Gitlab({ ...auth.options });
 
 export const updateApiVariable = (auth: Auth) => {
-	console.log("updateApiVariable", api);
-
 	api = createApi(auth);
 
 	/** broken */
