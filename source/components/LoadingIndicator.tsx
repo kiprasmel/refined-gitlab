@@ -1,7 +1,7 @@
 import React, { FC, useEffect, useRef, useState } from "react";
 
 // eslint-disable-next-line import/no-cycle
-import { getConfig } from "../utils/config";
+import { getConfig } from "../config";
 
 export const LoadingIndicator: FC<{}> = () => {
 	const symbols: string[] = ["-", "\\", "|", "/", "-", "\\", "|", "/"];

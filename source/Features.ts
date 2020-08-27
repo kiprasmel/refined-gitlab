@@ -2,7 +2,7 @@ import domLoaded from "dom-loaded";
 
 import { pageLoaded } from "./utils/pageLoaded";
 // eslint-disable-next-line import/no-cycle
-import { Config, getConfig } from "./utils/config";
+import { Config, getConfig } from "./config";
 // eslint-disable-next-line import/no-cycle
 import { needsToWaitForApi } from "./utils/needsToWaitForApi";
 // eslint-disable-next-line import/no-cycle

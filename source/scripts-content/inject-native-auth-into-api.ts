@@ -1,5 +1,5 @@
 import { updateApiVariable } from "../utils/api";
-import { getConfig } from "../utils/config";
+import { getConfig } from "../config";
 import { getCSRFData } from "../utils/getCSRFData";
 
 function injectNativeAuthIntoApi(request, _sender, _sendResponse): void {
