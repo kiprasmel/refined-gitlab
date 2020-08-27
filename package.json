@@ -8,7 +8,7 @@
 	"scripts": {
 		"dev": "yarn run-p dev:*",
 		"dev:src": "yarn watch",
-		"dev:ext": "web-ext run --source-dir ./distribution/ --firefox=\"$(command -v firefox || command -v firefox-developer-edition)\" --args=\"--new-tab=\"https://gitlab.com/kiprasmel/refined-gitlab/-/issues/17/\"\"",
+		"dev:ext": "mkdir -p distribution && cp source/manifest.json ./distribution/ && web-ext run --source-dir ./distribution/ --firefox=\"$(command -v firefox || command -v firefox-developer-edition)\" --args=\"--new-tab=\"https://gitlab.com/kiprasmel/refined-gitlab/-/issues/17/\"\"",
 		"postinstall": "bash ./postinstall.bash",
 		"lint": "run-p lint:*",
 		"lint:js": "xo",
@@ -29,6 +29,7 @@
 		"@gitbeaker/node": "^23.4.2",
 		"@types/classnames": "^2.2.10",
 		"@types/react-dom": "^16.9.8",
+		"arrive": "^2.4.1",
 		"classnames": "^2.2.6",
 		"dom-chef": "^4.1.0",
 		"dom-loaded": "^2.0.0",

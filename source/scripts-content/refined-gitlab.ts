@@ -10,6 +10,7 @@ import "../styles/cluster.scss";
 import "../features/add-custom-label-pickers";
 import "../features/always-expand-sidebar";
 import "../features/highlight-assign-yourself";
+import "../features/add-assignee-list-to-issue-board";
 // import "../features/show-total-commit-count";
 
 globalInit();
