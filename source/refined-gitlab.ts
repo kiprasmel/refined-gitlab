@@ -9,6 +9,8 @@ import "./styles/cluster.scss";
 import "./features/add-custom-label-pickers";
 import "./features/always-expand-sidebar";
 
+import "./options-storage";
+
 globalInit();
 
 /**
