@@ -10,6 +10,6 @@ export const highlightAssignYourself: Feature = () => {
 };
 
 features.add({
-	id: "highlight-assign-yourself",
+	id: __filebasename,
 	feature: highlightAssignYourself,
 });

@@ -108,7 +108,7 @@ export const notifyWhenCWSApprovesExtension: Feature = ({}) => {
 };
 
 features.add({
-	id: "notify-when-cws-approves-extension",
+	id: __filebasename,
 	feature: notifyWhenCWSApprovesExtension,
 	waitForDomLoaded: true,
 	waitForPageLoaded: true,

@@ -76,7 +76,7 @@ export const addCustomLabelPickers: Feature = async ({ sidebarFeaturesFromLabels
 };
 
 features.add({
-	id: "add-custom-label-pickers",
+	id: __filebasename,
 	feature: addCustomLabelPickers,
 	waitForDomLoaded: true,
 	needsApi: true,

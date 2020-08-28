@@ -31,7 +31,7 @@ export const BOILERPLATE: Feature = ({}) => {
 };
 
 features.add({
-	id: "BOILERPLATE",
+	id: __filebasename,
 	feature: BOILERPLATE,
 	waitForDomLoaded: true,
 	waitForPageLoaded: true,

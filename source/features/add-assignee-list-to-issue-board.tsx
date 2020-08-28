@@ -355,7 +355,7 @@ export const addAssigneeListToIssueBoard: Feature = ({}) => {
 };
 
 features.add({
-	id: "add-assignee-list-to-issue-board",
+	id: __filebasename,
 	feature: addAssigneeListToIssueBoard,
 	waitForDomLoaded: true,
 });
