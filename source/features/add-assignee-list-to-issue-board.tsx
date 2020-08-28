@@ -245,7 +245,12 @@ const Component: FC = () => {
 				key: "Enter",
 				charCode: 0,
 				keyCode: 13,
-			});
+				/**
+				 * typescript complains that we're adding too much
+				 * but it works and if we remove some props it breaks
+				 */
+				// eslint-disable-next-line @typescript-eslint/no-explicit-any
+			} as any);
 
 			// eslint-disable-next-line no-unused-expressions
 			select("input.filtered-search")?.dispatchEvent(enterEvent);
