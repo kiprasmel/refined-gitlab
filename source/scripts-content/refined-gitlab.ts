@@ -11,6 +11,7 @@ import "../features/add-custom-label-pickers";
 import "../features/always-expand-sidebar";
 import "../features/highlight-assign-yourself";
 import "../features/add-assignee-list-to-issue-board";
+import "../features/open-all-visible-issues-in-board-column";
 // import "../features/show-total-commit-count";
 
 globalInit();
