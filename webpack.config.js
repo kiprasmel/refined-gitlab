@@ -2,6 +2,7 @@
 
 /* eslint-disable @typescript-eslint/no-var-requires */
 
+const webpack = require("webpack");
 const path = require("path");
 const SizePlugin = require("size-plugin");
 const CopyWebpackPlugin = require("copy-webpack-plugin");
@@ -57,9 +58,21 @@ module.exports = {
 					{ loader: "sass-loader", options: { sourceMap: true } },
 				],
 			},
+			{
+				test: /\.(gif|png|jpe?g|svg)$/i,
+				use: [
+					"file-loader",
+					{
+						loader: "image-webpack-loader",
+					},
+				],
+			},
 		],
 	},
 	plugins: [
+		new webpack.DefinePlugin({
+			__isBuiltForBetaTesters: !!process.env.BETA,
+		}),
 		new SizePlugin({}),
 		new CopyWebpackPlugin({
 			patterns: [

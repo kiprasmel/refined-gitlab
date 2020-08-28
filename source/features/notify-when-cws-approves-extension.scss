@@ -1,0 +1,46 @@
+.rgl_psa__container {
+	position: absolute;
+	top: 100px;
+	right: 100px;
+	min-width: 200px;
+	max-width: 500px;
+
+	background: #fafafa;
+	color: #303030;
+	border: 1px solid #dbdbdb;
+	border-radius: 4px;
+	margin-bottom: 8px;
+}
+
+.rgl_psa__content {
+	padding: 24px 48px;
+
+	& > * + * {
+		margin-top: 48px;
+	}
+}
+
+.rgl_psa__icon-container {
+	width: 48px;
+	height: 48px;
+
+	// animation: spin 2s infinite;
+}
+
+.rgl_psa__icon {
+	width: 48px;
+	height: 48px;
+
+	animation: spin 2s infinite linear;
+	animation-delay: 2s;
+}
+
+@keyframes spin {
+	from {
+		transform: rotate(0deg);
+	}
+
+	to {
+		transform: rotate(360deg);
+	}
+}

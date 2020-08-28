@@ -11,6 +11,7 @@ import "../features/add-custom-label-pickers";
 import "../features/always-expand-sidebar";
 import "../features/highlight-assign-yourself";
 import "../features/add-assignee-list-to-issue-board";
+import "../features/notify-when-cws-approves-extension";
 // import "../features/show-total-commit-count";
 
 globalInit();
