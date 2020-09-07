@@ -1,3 +1,18 @@
+/**
+ * WARNING
+ *
+ * The code in this file is absolute trash!!
+ *
+ * I pulled an all-nighter to make it work
+ * and it's certainly not the greatest.
+ *
+ * Proceed with caution; perhaps we'll refactor it l8r
+ *
+ * See also:
+ *
+ * - a crazy bug with vimium - a different browser extension, and firing events manually: https://github.com/philc/vimium/issues/3651
+ */
+
 import React, { FC, useEffect, useState } from "react";
 import select from "select-dom";
 
