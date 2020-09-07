@@ -354,19 +354,27 @@ export const addAssigneeListToIssueBoard: Feature = ({}) => {
 	rootNode.style["marginBottom"] = "0";
 	rootNode.style["marginLeft"] = "1rem";
 	rootNode.style["flex"] = "1";
-	rootNode.style["width"] = "100%";
 
-	setTimeout(
-		() =>
-			renderNextTo(
-				".breadcrumbs-list", //
-				<Component />,
-				{
-					rootNode,
-				}
-			),
-		1
-	);
+	setTimeout(() => {
+		renderNextTo(
+			".breadcrumbs-list", //
+			<Component />,
+			{
+				rootNode,
+			}
+		);
+
+		if (rootNode.parentElement) {
+			rootNode.parentElement.style["display"] = "flex";
+			rootNode.parentElement.style["flexWrap"] = "wrap";
+			rootNode.parentElement.style["alignItems"] = "center";
+			rootNode.parentElement.style["justifyContent"] = "space-between";
+		} else {
+			console.error(
+				"Didn't find rootNode.parentElement, thus couldn't apply style fixes for the assignee list -- stuff might be outdated"
+			);
+		}
+	}, 1);
 };
 
 features.add({
