@@ -161,6 +161,7 @@ function getDefaultConfig(): Config {
 
 		features: {
 			"add-custom-label-pickers": true,
+			"add-custom-label-pickers-for-board-sidebar": true,
 			"always-expand-sidebar": true,
 			"highlight-assign-yourself": true,
 

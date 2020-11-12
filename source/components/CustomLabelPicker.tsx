@@ -1,6 +1,6 @@
 /* eslint-disable indent */
 /* eslint-disable @typescript-eslint/camelcase */
-import React, { useState, useEffect, FC } from "react";
+import React, { useState, useEffect, FC, useCallback } from "react";
 import cx from "classnames";
 
 import "./CustomLabelPicker.scss";
@@ -62,8 +62,10 @@ const useCurrentlySelectedLabels = (
 	const [currentLabelsInQuestion, setCurrentLabelsInQuestion] = useState<string[]>([]);
 	const [selectionStatuses, setSelectionStatuses] = useState<Record<string, SelectionStatus>>();
 
-	const findMatchingLabelsFor = (labels: string[]): string[] =>
-		labels.filter((label: string) => allowedLabels.includes(label));
+	const findMatchingLabelsFor = useCallback(
+		(labels: string[]): string[] => labels.filter((label: string) => allowedLabels.includes(label)),
+		[allowedLabels]
+	);
 
 	useEffect(() => {
 		(async (): Promise<void> => {
@@ -74,14 +76,13 @@ const useCurrentlySelectedLabels = (
 				const matchingLabels: string[] = findMatchingLabelsFor(fetchedLabels);
 
 				__setCurrentlySelectedLabels(matchingLabels);
-				setIsFetchingLabels(false);
 			} catch (e) {
 				console.error(e);
+			} finally {
+				setIsFetchingLabels(false);
 			}
 		})();
-
-		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, []);
+	}, [issueIid, projectId, findMatchingLabelsFor]);
 
 	// eslint-disable-next-line @typescript-eslint/explicit-function-return-type
 	const setCurrentlySelectedLabels = async (labelInQuestion: string, intent: LabelUpdateIntent) => {
@@ -181,8 +182,8 @@ export type CustomPickerProps = SidebarFeatureFromLabels & {
 };
 
 export const CustomLabelPicker: FC<CustomPickerProps> = ({
-	projectId = -1,
-	issueIid = -1,
+	projectId,
+	issueIid,
 	isMultiSelect = false,
 	labelLayoutType = "grid",
 	title = "",

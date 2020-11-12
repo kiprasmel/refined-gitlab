@@ -8,6 +8,7 @@ import "../styles/cluster.scss";
 
 /** leggo */
 import "../features/add-custom-label-pickers";
+import "../features/add-custom-label-pickers-for-board-sidebar";
 import "../features/always-expand-sidebar";
 import "../features/highlight-assign-yourself";
 import "../features/add-assignee-list-to-issue-board";
