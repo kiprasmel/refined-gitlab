@@ -16,9 +16,7 @@
 		"96": "refined-gitlab@2x.png"
 	},
 	"permissions": [
-		"storage",
 		"cookies",
-		"tabs",
 		"<all_urls>"
 	],
 	"options_ui": {
