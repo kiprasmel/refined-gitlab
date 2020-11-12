@@ -23,7 +23,8 @@
 		"new-version": "run-s new-version:git new-version:manifest",
 		"release:cws": "webstore upload --source=distribution --auto-publish",
 		"release:amo": "web-ext-submit --source-dir distribution",
-		"release": "run-s build new-version release:*"
+		"release": "run-s build new-version release:*",
+		"release:beta": "run-s build:beta new-version release:*"
 	},
 	"dependencies": {
 		"@types/classnames": "^2.2.10",
