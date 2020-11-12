@@ -26,8 +26,6 @@
 		"release": "run-s build new-version release:*"
 	},
 	"dependencies": {
-		"@gitbeaker/browser": "^23.4.2",
-		"@gitbeaker/node": "^23.4.2",
 		"@types/classnames": "^2.2.10",
 		"@types/react-dom": "^16.9.8",
 		"axios": "^0.20.0",

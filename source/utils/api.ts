@@ -1,6 +1,6 @@
 // // import { Gitlab } from "@gitbeaker/core"; /** all imports utterly broken */
 import { Gitlab } from "../../gitbeaker/packages/gitbeaker-browser/src";
-import { NativeAuth as GitbeakerNativeAuth } from "../../gitbeaker/packages/gitbeaker-core/src/infrastructure/BaseService";
+import { NativeAuth as GitbeakerNativeAuth } from "../../gitbeaker/packages/gitbeaker-requester-utils/src/BaseService";
 // import { setGlobalVar } from "./setGlobalVar";
 
 /**
@@ -35,6 +35,8 @@ export const createApi = (auth: Auth) => new Gitlab({ ...auth.options });
 
 export const updateApiVariable = (auth: Auth) => {
 	api = createApi(auth);
+
+	console.log("updateApiVariable", auth, api);
 
 	/** broken */
 	// (window as any).api = api;
