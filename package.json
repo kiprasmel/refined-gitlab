@@ -1,6 +1,6 @@
 {
 	"name": "refined-gitlab",
-	"version": "0.6.0",
+	"version": "0.6.1",
 	"author": "Kipras Melnikovas (https://kipras.org) <kipras@kipras.org>",
 	"main": "dist/index.js",
 	"typings": "dist/index.d.ts",
