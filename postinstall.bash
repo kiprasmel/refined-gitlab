@@ -23,6 +23,7 @@ patch -f ./node_modules/@types/jest-environment-puppeteer/index.d.ts <<EOF
      const page: Page;
 EOF
 
-yarn build
+# we're integrating gitbeaker into our own webpack build config!
+### yarn build
 
 exit 0

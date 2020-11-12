@@ -1,6 +1,6 @@
 {
 	"compilerOptions": {
-		// "baseUrl": ".",
+		"baseUrl": ".",
 		// "outDir": "",
 		"module": "esnext",
 		"target": "es6",
@@ -23,10 +23,12 @@
 		"noUnusedLocals": true,
 		"skipLibCheck": true,
 		"esModuleInterop": true,
-		"allowSyntheticDefaultImports": true
+		"allowSyntheticDefaultImports": true,
+		"resolveJsonModule": true,
 	},
 	"include": [
-		"source" //
+		"source", //
+		"gitbeaker"
 	],
 	"exclude": [
 		"node_modules",
@@ -35,6 +37,10 @@
 		"acceptance-tests",
 		"webpack",
 		"jest",
-		"src/setupTests.ts"
-	]
+		"src/setupTests.ts",
+		"gitbeaker/**/test/*"
+	],
+    "paths": {
+      "@gitbeaker/*": ["gitbeaker/packages/*/src/"], //
+    },
 }

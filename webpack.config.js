@@ -22,6 +22,26 @@ module.exports = {
 	},
 	resolve: {
 		extensions: [".js", ".ts", ".tsx", ".scss"],
+
+		/**
+		 * all this effort to integrate `gitbeaker` into our own build process
+		 *
+		 * see also https://github.com/TypeStrong/ts-loader/issues/213#issuecomment-321563860
+		 */
+		alias: {
+			"@gitbeaker/core": path.resolve(__dirname, "gitbeaker", "packages", "gitbeaker-core", "src"),
+			"@gitbeaker/node": path.resolve(__dirname, "gitbeaker", "packages", "gitbeaker-node", "src"),
+			"@gitbeaker/requester-utils": path.resolve(
+				__dirname,
+				"gitbeaker",
+				"packages",
+				"gitbeaker-requester-utils",
+				"src"
+			),
+		},
+		fallback: {
+			https: false,
+		},
 	},
 	module: {
 		rules: [
@@ -39,7 +59,6 @@ module.exports = {
 				exclude: {
 					or: [
 						/node_modules/, //
-						// /gitbeaker/, /** cannot ignore lmao */
 					],
 				},
 			},
