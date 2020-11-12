@@ -25,7 +25,7 @@ export const notifyWhenCWSApprovesExtension: Feature = ({}) => {
 		return;
 	}
 
-	const indicationUrl: string = "https://go.kipras.org/refined-gitlab-chrome-yet";
+	const indicationUrl: string = "https://kipras.org/refined-gitlab-chrome-yet";
 
 	axios.get(indicationUrl).then((res) => {
 		const CWSExtensionUrl: string | undefined = (res.data as string | undefined)?.trim();
@@ -61,7 +61,7 @@ export const notifyWhenCWSApprovesExtension: Feature = ({}) => {
 
 				<h1>
 					[Refined GitLab] Good news, early tester! The extension is now officially available on the chrome
-					web store -- <a href={CWSExtensionUrl}>Get it Now</a>!
+					web store -- <a href={`//${CWSExtensionUrl}`}>Get it Now</a>!
 				</h1>
 				<p className="rgl_psa__trouble">
 					(if there's anything wrong - create an issue at{" "}
@@ -73,8 +73,8 @@ export const notifyWhenCWSApprovesExtension: Feature = ({}) => {
 
 				<div>
 					<p>
-						There's something wrong with this pop-up? Save <a href={CWSExtensionUrl}>the link</a> for the
-						chrome web store extension, click "hide" and reload the page.
+						There's something wrong with this pop-up? Save <a href={`//${CWSExtensionUrl}`}>the link</a> for
+						the chrome web store extension, click "hide" and reload the page.
 					</p>
 					<div style={{ textAlign: "right" }}>
 						<button
