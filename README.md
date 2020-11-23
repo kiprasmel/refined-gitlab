@@ -5,7 +5,7 @@ Much like [refined-github](https://github.com/sindresorhus/refined-github), but 
 ## I. Install
 
 
-- **Chrome** extension | status = waiting for review 👀
+- [**Chrome** extension <img valign="middle" src="https://img.shields.io/chrome-web-store/v/jaafoplpaafgeeclnaakkimfgajikgba.svg?label=%20">](https://chrome.google.com/webstore/detail/refined-gitlab/jaafoplpaafgeeclnaakkimfgajikgba/)
 
 - [**Firefox** add-on <img valign="middle" src="https://img.shields.io/amo/v/refined-gitlab.svg?label=%20">](https://addons.mozilla.org/en-US/firefox/addon/refined-gitlab/)
 
