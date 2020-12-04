@@ -19,6 +19,9 @@
 import { FeatureDescription } from "./Features";
 // eslint-disable-next-line import/no-cycle
 import { SidebarFeatureFromLabels } from "./features/add-custom-label-pickers";
+// eslint-disable-next-line import/no-cycle
+import { StoryPointsConfig } from "./features/story-points/show-story-point-count-in-issue-board-lists";
+
 import { AuthKind } from "./utils/api";
 
 /** TODO LINT disable no-explicit-any */
@@ -38,7 +41,7 @@ export type Config<_AuthKind extends AuthKind = AuthKind> = {
 
 	/** feature configs leggo */
 	sidebarFeaturesFromLabels: SidebarFeatureFromLabels[];
-
+	storyPoints: StoryPointsConfig;
 	/** feature toggles leggo */
 	// // features: { [key: FeatureDescription["id"]]: FeatureConfig};
 	// // features: { [key: string]:  boolean | FeatureConfig};
@@ -159,11 +162,20 @@ function getDefaultConfig(): Config {
 			},
 		],
 
+		storyPoints: {
+			labelPrefix: "SP",
+			// // shouldShowTotalCountInEachBoardColumn: true,
+			// // shouldShowHowManyCardsAreMissingTheLabelInEachBoardColumn: false,
+			// // shouldHighlightCardBackgroundIfDoesNotHaveLabel: false,
+			// // highlightedCardBackgroundColor: "rgba(255, 0, 0, 1.0)",
+		},
+
 		features: {
 			"add-custom-label-pickers": true,
 			"add-custom-label-pickers-for-board-sidebar": true,
 			"always-expand-sidebar": true,
 			"highlight-assign-yourself": true,
+			"show-story-point-count-in-issue-board-lists": true,
 
 			/**
 			 * TODO AUTOMATE
