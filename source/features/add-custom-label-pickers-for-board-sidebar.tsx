@@ -1,10 +1,34 @@
 import React, { FC } from "react";
 
 import select from "select-dom";
-import { useObservedIssueIid } from "../hooks/useObservedIssueIid";
+import { observedValueFactory } from "../hooks/useObservedValue";
 import { Feature, features } from "../Features";
 import { CustomLabelPicker } from "../components/CustomLabelPicker";
 import { renderBefore } from "../utils/render";
+
+const useObservedIssueIid = observedValueFactory((mutationRecords) => {
+	const mutation = mutationRecords[0];
+
+	if (mutation.type !== "characterData") {
+		console.info("ignoring (1) sidebar issue id update: type didn't match `characterData`");
+		return;
+	}
+
+	if (mutation.target.nodeName !== "#text") {
+		console.info("ignoring (2) sidebar issue id update: target.nodeNam didn't match `#text`");
+		return;
+	}
+
+	const value = mutation.target.nodeValue?.trim().replace("#", "");
+
+	if (value === undefined) {
+		console.info("ignoring (3): target.nodeValue === undefined");
+		return;
+	}
+
+	const parsedVal: number = parseInt(value, 10);
+	return parsedVal;
+});
 
 export const addCustomLabelPickersForBoardSidebar: Feature = ({ sidebarFeaturesFromLabels }) => {
 	if (!/\/boards?\/?\d*/.test(window.location.href)) {
