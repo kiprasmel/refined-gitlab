@@ -34,6 +34,7 @@
 		"classnames": "^2.2.6",
 		"dom-chef": "^4.1.0",
 		"dom-loaded": "^2.0.0",
+		"element-ready": "^4.1.1",
 		"is-string": "^1.0.5",
 		"react": "^16.13.1",
 		"react-dom": "^16.13.1",

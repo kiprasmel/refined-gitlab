@@ -2,10 +2,14 @@
 /* eslint-disable @typescript-eslint/camelcase */
 import React, { useState, useEffect, FC, useCallback } from "react";
 import cx from "classnames";
+import select from "select-dom";
+import elementReady from "element-ready";
 
 import "./CustomLabelPicker.scss";
 
 // eslint-disable-next-line import/no-cycle
+
+// import { wait } from "../utils/wait";
 import { api } from "../utils/api";
 // eslint-disable-next-line import/no-cycle
 import { SelectionStatusIndicator } from "./SelectionStatusIndicator";
@@ -94,7 +98,7 @@ const useCurrentlySelectedLabels = (
 		 * These two `onX` need to be different for each `intent`
 		 * so that the mimiced state is always correct.
 		 */
-		const onSuccess = (res) => {
+		const onSuccess = (res: { labels: string[] | undefined } | any): void => {
 			__setCurrentlySelectedLabels(findMatchingLabelsFor(res.labels ?? []));
 			setSelectionStatuses((current) => ({ ...current, [labelInQuestion]: "success" }));
 			setCurrentLabelsInQuestion((current) => [...current].filter((label) => label !== labelInQuestion));
@@ -109,11 +113,85 @@ const useCurrentlySelectedLabels = (
 
 		try {
 			if (intent === "add") {
-				const res = await api.Issues.edit(projectId, issueIid, {
-					add_labels: labelInQuestion,
-				});
+				let labelEditBtn: HTMLButtonElement | HTMLAnchorElement | null;
+				let labelInput: HTMLInputElement | null;
 
-				onSuccess(res);
+				if (select(`button[data-qa-selector="labels_edit_button"]` /** in issue */)) {
+					labelEditBtn = (await elementReady(
+						`button[data-qa-selector="labels_edit_button"]`
+					)) as HTMLButtonElement | null;
+
+					if (!labelEditBtn) {
+						throw new Error("[refined-gitlab] label edit button was falsy -- cannot edit label :/");
+					}
+
+					labelEditBtn.click();
+
+					labelInput = (await elementReady(
+						`div[data-qa-selector="labels_dropdown_content"] .dropdown-input input` /** in issue */
+					)) as HTMLInputElement | null;
+
+					if (!labelInput) {
+						throw new Error("[refined-gitlab] label input button was falsy -- cannot edit label :/");
+					}
+
+					delete labelInput.attributes["disabled"];
+
+					labelInput.value = labelInQuestion;
+				} else if (select(`div.labels .edit-link` /** in issue board */)) {
+					labelEditBtn = (await elementReady(`div.labels a.edit-link`)) as HTMLAnchorElement | null;
+
+					if (!labelEditBtn) {
+						throw new Error("[refined-gitlab] label edit button was falsy -- cannot edit label :/");
+					}
+
+					labelEditBtn.click();
+
+					labelInput = (await elementReady(
+						`div.dropdown-menu .dropdown-input input`
+					)) as HTMLInputElement | null;
+
+					if (!labelInput) {
+						throw new Error("[refined-gitlab] label input button was falsy -- cannot edit label :/");
+					}
+
+					delete labelInput.attributes["disabled"];
+
+					labelInput.value = labelInQuestion;
+				}
+
+				// if (!labelEditBtn) {
+				// 	throw new Error("[refined-gitlab] label edit button was falsy -- cannot edit label :/");
+				// }
+				// labelEditBtn.click();
+				// wait(10);
+
+				// const labelInput: HTMLInputElement | null =
+				// 	select(`div[data-qa-selector="labels_dropdown_content"] .dropdown-input input` /** in issue */) ??
+				// 	select(`div.dropdown-menu .dropdown-input input` /** in issue board */);
+				// if (!labelInput) {
+				// 	throw new Error("[refined-gitlab] label input button was falsy -- cannot edit label :/");
+				// }
+				// labelInput.value = labelInQuestion;
+				// wait(2000);
+
+				// const labelSelect = select
+				// 	.all(`div[data-qa-selector="labels_dropdown_content"] .dropdown-content li` /** in issue */)
+				// 	.map((el) => select(`a`, el))
+				// 	.filter((a) => a?.lastChild?.textContent?.trim() === labelInQuestion)[0];
+
+				// if (!labelSelect) {
+				// 	throw new Error("[refined-gitlab] label select button was falsy -- cannot edit label :/");
+				// }
+				// labelSelect.click();
+				// wait(100);
+
+				// const body = select("body");
+				// if (!body) {
+				// 	throw new Error("[refined-gitlab] body was falsy -- cannot edit label :/");
+				// }
+				// body.click();
+				// wait(10);
 			} else if (intent === "replace") {
 				const res = await api.Issues.edit(projectId, issueIid, {
 					/**
