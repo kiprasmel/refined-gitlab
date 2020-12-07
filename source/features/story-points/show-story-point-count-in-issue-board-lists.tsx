@@ -65,6 +65,11 @@ export const storyPoints: Feature = ({ storyPoints: storyPointsConfig }) => {
 			const useObservedValue = observedValueFactory(handleMutation);
 			const storyPointCount = useObservedValue(list);
 
+			if (!storyPointCount && storyPointCount !== 0) {
+				/** don't display until we have the count (feels better) */
+				return null;
+			}
+
 			return (
 				<>
 					<span className="gl-display-inline-flex gl-ml-3">
