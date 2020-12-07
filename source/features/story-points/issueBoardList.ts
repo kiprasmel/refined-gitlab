@@ -27,7 +27,10 @@ export const parseBoardList = (listEl: HTMLElement): IssueBoardList => {
 		`div[data-id="${listId}"] header .board-title .issue-count-badge span`
 	);
 
-	const listIssueElements: HTMLLIElement[] = select.all(`ul[data-board="${listId}"] li`);
+	const listIssueElements: HTMLLIElement[] = select
+		.all(`ul[data-board="${listId}"] li`)
+		// .all(`ul[data-board="${listId}"] li:not(.is-ghost)`)
+		.filter((el: HTMLLIElement) => el.style?.["display"] !== "none") as HTMLLIElement[];
 
 	const listIssues: IssueCard[] = listIssueElements.map((el) => {
 		const issueIdKey: string = "data-issue-id";
@@ -36,9 +39,15 @@ export const parseBoardList = (listEl: HTMLElement): IssueBoardList => {
 		return {
 			id: issueId,
 			iid: el.attributes["data-issue-iid"].value,
-			labelElements: select.all(`ul[data-board="${listId}"] li .board-card-labels span`),
+			labelElements: select.all(`.board-card-labels span`, listIssueElements),
 			labelNames: select
-				.all(`ul[data-board="${listId}"] li[${issueIdKey}="${issueId}"] .board-card-labels .gl-label-text`)
+				.all(
+					`.board-card-labels .gl-label-text`,
+					select
+						.all(`ul[data-board="${listId}"] li[${issueIdKey}="${issueId}"]`)
+						// .all(`ul[data-board="${listId}"] li[${issueIdKey}="${issueId}"]:not(.is-ghost)`)
+						.filter((deepEl) => deepEl.style?.display !== "none")
+				)
 				.map((l) => l.textContent?.trim())
 				.filter(removeUndefined),
 		};
@@ -98,5 +107,6 @@ export const countStoryPointsInsideBoardList = (boardList: IssueBoardList, story
 		}
 	});
 
+	// console.log("storyPointSumInList", storyPointSumInList, "boardList", boardList);
 	return storyPointSumInList;
 };
