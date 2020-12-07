@@ -1,10 +1,12 @@
 import { useState } from "react";
-import select from "select-dom";
 
 export const observedValueFactory = <T>(parseValueOnElementChange: (mutationRecords: MutationRecord[]) => T) =>
-	function useObservedValue(elementToObserve: HTMLElement | null = select(`ul[data-board]`)): T | undefined {
+	function useObservedValue(elementToObserve: HTMLElement): T | undefined {
 		if (!elementToObserve) {
-			throw new Error("Cannot render label pickers in issue board - the `elementToObserve` was falsy");
+			const err = new Error(
+				"[refined-gitlab] Cannot render element in issue board - the `elementToObserve` was falsy"
+			);
+			console.error(err, elementToObserve);
 		}
 
 		const [observedValue, setObservedValue] = useState<T | undefined>(undefined);

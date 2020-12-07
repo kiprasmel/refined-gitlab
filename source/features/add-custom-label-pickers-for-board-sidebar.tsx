@@ -54,6 +54,12 @@ export const addCustomLabelPickersForBoardSidebar: Feature = ({ sidebarFeaturesF
 		throw new Error("Cannot render label pickers - the `$('.labels')[0].nextElementSibling` was falsy");
 	}
 
+	const issueIidElement: HTMLSpanElement | null = select(".issuable-header-text > span");
+
+	if (!issueIidElement) {
+		throw new Error("[refined-gitlab] issue iid element not found -- cannot parse issue :/");
+	}
+
 	for (const {
 		title = "", //
 		labels = [],
@@ -66,7 +72,7 @@ export const addCustomLabelPickersForBoardSidebar: Feature = ({ sidebarFeaturesF
 		}
 
 		const ReactiveCustomLabelPicker: FC = () => {
-			const issueIid = useObservedIssueIid();
+			const issueIid = useObservedIssueIid(issueIidElement);
 
 			if (!issueIid && issueIid !== 0) {
 				return null;
