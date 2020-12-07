@@ -72,8 +72,9 @@ export const storyPoints: Feature = ({ storyPoints: storyPointsConfig }) => {
 
 			return (
 				<>
+					{/* TODO: (once clickable + toolbar) style={{ borderBottom: "2px solid green" }} */}
 					<span className="gl-display-inline-flex gl-ml-3">
-						{storyPointsConfig.labelPrefix} {storyPointCount}
+						{storyPointsConfig.labelPrefix} &ge; {storyPointCount}
 					</span>
 				</>
 			);
