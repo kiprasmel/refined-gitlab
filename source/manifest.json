@@ -17,6 +17,7 @@
 	},
 	"permissions": [
 		"cookies",
+		"tabs",
 		"<all_urls>"
 	],
 	"options_ui": {

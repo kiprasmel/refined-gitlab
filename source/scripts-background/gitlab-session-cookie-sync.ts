@@ -25,16 +25,21 @@ async function sendMessage(
 async function gitlabSessionCookieSync(): Promise<void> {
 	try {
 		const tab = await getActiveTab();
+		console.log("tab", tab);
 
 		if (tab.id === undefined) {
+			console.error("tab.id undefined");
 			return;
 		}
 
 		if (!tab?.url) {
+			const msg = "Cannot update cookies (tab's **URL** not found)";
+			console.error(msg);
+
 			await sendMessage(tab.id, {
 				gitlabSessionToken: undefined,
 				success: false,
-				reason: "Cannot update cookies (tab's **URL** not found)",
+				reason: msg,
 			});
 
 			return;
@@ -47,18 +52,22 @@ async function gitlabSessionCookieSync(): Promise<void> {
 		});
 
 		if (!cookie) {
+			const msg = "Cannot update cookies (cookie was falsy)";
+			console.error(msg);
+
 			await sendMessage(tab.id, {
 				gitlabSessionToken: undefined,
 				success: false,
-				reason: "Cannot update cookies (cookie was falsy)",
+				reason: msg,
 			});
 
 			return;
 		}
 
+		console.log("successfully retrieved cookie 'gitlabSessionToken'");
 		await sendMessage(tab.id, { gitlabSessionToken: cookie.value, success: true });
 	} catch (e) {
-		console.error(e);
+		console.error(JSON.stringify(e));
 		throw e;
 	}
 }

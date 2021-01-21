@@ -134,18 +134,27 @@ features.add({
 
 ``` -->
 
-## IV. Meta
+## IV. Permission explanations
+
+Permissions can be seen in [./source/manifest.json](./source/manifest.json)
+
+- `cookies`: required for 0-config authentication (the other option is an API token, but that's for power users who want to customize it that way).
+
+- `tabs`: required to retrieve the current tab and send over the cookie from the background to content script (see [./source/scripts-background/gitlab-session-cookie-sync.ts](./source/scripts-background/gitlab-session-cookie-sync.ts))
+- `<all_urls>`: required since you have your own self-hosted gitlab instance and the `gitlab.com` url won't work
+
+## V. Meta
 
 - [refined-gitlab](https://gitlab.com/kiprasmel/refined-gitlab) project ID on gitlab: `20434942`
 
 - [refined-gitlab-playground](https://gitlab.com/kiprasmel/refined-gitlab-playground) project ID on gitlab: `20690630`
 
 
-## V. See also
+## VI. See also
 
 - [Gitbeaker](https://github.com/jdalrymple/gitbeaker/) - GitLab's API wrapper we use here & often contribute to.
 - [Figma assets](https://www.figma.com/file/PyOJIJOClNV2dZs4QWU7Pa/Refined-GitLab) - icons, feature screenshots etc.
 
-## VI. License
+## VII. License
 
 MIT © [Kipras Melnikovas](https://gitlab.com/kiprasmel)
