@@ -26,4 +26,6 @@ EOF
 # we're integrating gitbeaker into our own webpack build config!
 ### yarn build
 
+cp .example.env .env
+
 exit 0

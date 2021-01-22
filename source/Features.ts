@@ -31,7 +31,7 @@ class Features {
 		return [...this.__addedFeatures];
 	}
 
-	loadAll(): void {
+	async loadAll(): Promise<void> {
 		const config = getConfig();
 
 		for (const { id, feature, waitForDomLoaded, waitForPageLoaded, needsApi } of this.getAll()) {
@@ -59,12 +59,13 @@ class Features {
 
 				if (requirements.length > 0) {
 					(async (): Promise<void> => {
-						await Promise.all(requirements);
-						feature(featureProps);
+						await Promise.allSettled(requirements);
+
+						await feature(featureProps);
 						console.log(`✅ (⏱) feature loaded (after dom loaded), id: \`${id}\``);
 					})();
 				} else {
-					feature(featureProps);
+					await feature(featureProps);
 					console.log(`✅ feature loaded (instantly), id: \`${id}\``);
 				}
 			} catch (e) {

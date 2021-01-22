@@ -71,11 +71,22 @@ export const resetConfig = (): Config => {
 };
 
 function getDefaultConfig(): Config {
-	const authKind: AuthKind = "native";
-
-	const defaultConfig: Config<typeof authKind> = {
+	const defaultConfig: Config = {
 		configVersion: "0",
-		authKind,
+		authKind: "native",
+
+		// ...((): Pick<Config<"apiToken" | "native">, "authKind" | "apiToken"> => {
+		// ...(() => {
+		// 	// <Pick<Config<"apiToken">, "authKind" | "apiToken">>;
+		// 	if (process.env.DEV_AUTO_GITLAB_AUTH_ENABLED) {
+		// 		return {
+		// 			authKind: "apiToken" as AuthKind,
+		// 			apiToken: process.env.DEV_AUTO_GITLAB_AUTH_TOKEN,
+		// 		};
+		// 	} else {
+		// 		return {};
+		// 	}
+		// })(),
 
 		loadingIndicatorCyclingSpeedMs: Math.ceil(1000 / 60 /** 60 FPS (~58.82 after Math.ceil) */),
 
