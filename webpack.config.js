@@ -97,6 +97,24 @@ module.exports = {
 				({ module }) => JSON.stringify(path.basename(module.resource).replace(/\.tsx?$/, "")),
 				true
 			),
+
+			__DEV__: process.env.NODE_ENV !== "production",
+			// __gitlabAuthCacheEnable: !!process.env.DEV_CACHE_GITLAB_AUTH_ENABLE,
+
+			// /**
+			//  * @type { typeof import("./index").LocalDevServer }
+			//  */
+			// __localDevServer: (() => {
+			// 	// this.__localDevServerPort = parseInt(process.env.DEV_LOCAL_SERVER_PORT ?? 10420);
+			// 	// this.__localDevServerHostname = "127.0.0.1";
+			// 	// this.__localDevServerUrl = `${this.__localDevServerHostname}:${this.__localDevServerPort}`;
+			// 	this.port = parseInt(process.env.DEV_LOCAL_SERVER_PORT || 10420);
+			// 	this.hostname = "127.0.0.1";
+			// 	this.url = `${this.hostname}:${this.port}`;
+			// })(),
+			// __localDevServerPort: parseInt(process.env.DEV_LOCAL_SERVER_PORT ?? 10420),
+			// __localDevServerHostname: "127.0.0.1",
+			// __localDevServerUrl: `${this.__localDevServerHostname}:${this.__localDevServerPort}`,
 		}),
 		new SizePlugin({}),
 		new CopyWebpackPlugin({
