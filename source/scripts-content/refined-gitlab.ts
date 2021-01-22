@@ -16,7 +16,9 @@ import "../features/notify-when-cws-approves-extension";
 import "../features/story-points/show-story-point-count-in-issue-board-lists";
 // import "../features/show-total-commit-count";
 
-globalInit();
+(async (): Promise<void> => {
+	await globalInit();
+})();
 
 /**
  * debugging
