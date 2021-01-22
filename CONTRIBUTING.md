@@ -21,3 +21,9 @@ bash ./preupload.bash
 ```
 
 the generated files are in [./distribution/](./distribution/) & [./web-ext-artifacts/](./web-ext-artifacts/).
+
+## uploading/publishing to extension stores via CLI
+
+For chrome web store, you'll need this: https://github.com/DrewML/chrome-webstore-upload/blob/master/How%20to%20generate%20Google%20API%20keys.md
+
+For firefox: TBD
