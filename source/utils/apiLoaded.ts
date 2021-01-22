@@ -1,6 +1,7 @@
+// eslint-disable-next-line import/no-cycle
 import { needsToWaitForApi } from "./needsToWaitForApi";
 
-export const apiLoaded = new Promise((resolve) => {
+export const apiLoaded = new Promise<void>((resolve, reject) => {
 	if (!needsToWaitForApi()) {
 		resolve();
 	}
@@ -10,6 +11,8 @@ export const apiLoaded = new Promise((resolve) => {
 
 		if (gitlabSessionToken) {
 			resolve();
+		} else {
+			reject();
 		}
 	});
 });

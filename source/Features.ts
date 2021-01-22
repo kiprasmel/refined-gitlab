@@ -31,46 +31,50 @@ class Features {
 		return [...this.__addedFeatures];
 	}
 
-	loadAll(): void {
+	async loadAll(): Promise<void> {
 		const config = getConfig();
 
-		for (const { id, feature, waitForDomLoaded, waitForPageLoaded, needsApi } of this.getAll()) {
-			if (config.features[id] === false) {
-				console.log(`⏭ skipping feature because it's disabled in config, id: \`${id}\``);
-				continue;
+		const promises: Promise<any>[] = this.getAll().map(
+			async ({ id, feature, waitForDomLoaded, waitForPageLoaded, needsApi }) => {
+				if (config.features[id] === false) {
+					console.log(`⏭ skipping feature because it's disabled in config, id: \`${id}\``);
+					return;
+				}
+
+				try {
+					const featureProps: FeatureProps = { ...config };
+
+					const requirements: Promise<any>[] = [];
+
+					if (waitForDomLoaded) {
+						requirements.push(domLoaded);
+					}
+
+					if (waitForPageLoaded) {
+						requirements.push(pageLoaded);
+					}
+
+					if (needsApi && needsToWaitForApi()) {
+						requirements.push(apiLoaded);
+					}
+
+					if (requirements.length > 0) {
+						await Promise.allSettled(requirements);
+						await feature(featureProps);
+
+						console.log(`✅ (⏱) feature loaded (after fulfilling requirements), id: \`${id}\``);
+					} else {
+						await feature(featureProps);
+
+						console.log(`✅ feature loaded (instantly), id: \`${id}\``);
+					}
+				} catch (e) {
+					console.error(`❌ failed to load feature "${id}", error:`, { e });
+				}
 			}
+		);
 
-			try {
-				const featureProps: FeatureProps = { ...config };
-
-				const requirements: Promise<any>[] = [];
-
-				if (waitForDomLoaded) {
-					requirements.push(domLoaded);
-				}
-
-				if (waitForPageLoaded) {
-					requirements.push(pageLoaded);
-				}
-
-				if (needsApi && needsToWaitForApi()) {
-					requirements.push(apiLoaded);
-				}
-
-				if (requirements.length > 0) {
-					(async (): Promise<void> => {
-						await Promise.all(requirements);
-						feature(featureProps);
-						console.log(`✅ (⏱) feature loaded (after dom loaded), id: \`${id}\``);
-					})();
-				} else {
-					feature(featureProps);
-					console.log(`✅ feature loaded (instantly), id: \`${id}\``);
-				}
-			} catch (e) {
-				console.error(`❌ failed to load feature "${id}", error:`, { e });
-			}
-		}
+		await Promise.allSettled(promises);
 	}
 }
 
