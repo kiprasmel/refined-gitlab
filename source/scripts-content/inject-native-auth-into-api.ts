@@ -1,29 +1,33 @@
 import { updateApiVariable } from "../utils/api";
 import { getConfig } from "../config";
 import { getCSRFData } from "../utils/getCSRFData";
+import { MessagePayload } from "../scripts-background/gitlab-session-cookie-sync";
 
-function injectNativeAuthIntoApi(request, _sender, _sendResponse): void {
+async function injectNativeAuthIntoApi(request: MessagePayload, _sender, _sendResponse): Promise<void> {
 	const { authKind } = getConfig();
 
 	if (authKind !== "native") {
 		return;
 	}
 
-	const { gitlabSessionToken } = request;
+	const { gitlabSessionToken, sessionCookie, isSignedInCookie } = request;
 
 	if (gitlabSessionToken) {
-		// console.log("`gitlabSessionToken` present - creating new api");
-
+		console.log("`gitlabSessionToken` present - creating new api");
 		const { key: gitlabCSRFTokenKey, value: gitlabCSRFTokenValue } = getCSRFData();
 
-		updateApiVariable({
-			kind: "native",
-			options: {
-				host: window.location.origin,
-				nativeAuth: {
-					gitlabSessionCookieValue: gitlabSessionToken,
-					gitlabCSRFTokenKey,
-					gitlabCSRFTokenValue,
+		await updateApiVariable({
+			sessionCookie: sessionCookie ?? undefined,
+			isSignedInCookie: isSignedInCookie ?? undefined,
+			auth: {
+				kind: "native",
+				options: {
+					host: window.location.origin,
+					nativeAuth: {
+						gitlabSessionCookieValue: gitlabSessionToken,
+						gitlabCSRFTokenKey,
+						gitlabCSRFTokenValue,
+					},
 				},
 			},
 		});

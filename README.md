@@ -143,14 +143,18 @@ Permissions can be seen in [./source/manifest.json](./source/manifest.json)
 - `tabs`: required to retrieve the current tab and send over the cookie from the background to content script (see [./source/scripts-background/gitlab-session-cookie-sync.ts](./source/scripts-background/gitlab-session-cookie-sync.ts))
 - `<all_urls>`: required since you have your own self-hosted gitlab instance and the `gitlab.com` url won't work
 
-## V. Meta
+## V Auto authentication
+
+It works like magic -- both for local development (auto sign-in by borrowing your session from another browser), and for production (0-config API auth - just be signed in to GitLab, and all features that require the API will work automatically).
+
+## VI. Meta
 
 - [refined-gitlab](https://gitlab.com/kiprasmel/refined-gitlab) project ID on gitlab: `20434942`
 
 - [refined-gitlab-playground](https://gitlab.com/kiprasmel/refined-gitlab-playground) project ID on gitlab: `20690630`
 
 
-## VI. See also
+## VII. See also
 
 - [Gitbeaker](https://github.com/jdalrymple/gitbeaker/) - GitLab's API wrapper we use here & often contribute to.
 - [Figma assets](https://www.figma.com/file/PyOJIJOClNV2dZs4QWU7Pa/Refined-GitLab) - icons, feature screenshots etc.

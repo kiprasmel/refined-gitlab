@@ -92,11 +92,14 @@ module.exports = {
 	plugins: [
 		new webpack.DefinePlugin({
 			__isBuiltForBetaTesters: !!process.env.BETA,
+
 			// Passing `true` as the second argument makes these values dynamic — so every file change will update their value.
 			__filebasename: webpack.DefinePlugin.runtimeValue(
 				({ module }) => JSON.stringify(path.basename(module.resource).replace(/\.tsx?$/, "")),
 				true
 			),
+
+			__DEV__: process.env.NODE_ENV !== "production",
 		}),
 		new SizePlugin({}),
 		new CopyWebpackPlugin({
