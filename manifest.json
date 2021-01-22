@@ -1,0 +1,44 @@
+{
+	"manifest_version": 2,
+	"name": "Refined GitLab",
+	"version": "0.0.0",
+	"description": "🏷 Make your GitLab experience better!",
+	"homepage_url": "https://gitlab.com/kiprasmel/refined-gitlab",
+	"minimum_chrome_version": "74",
+	"applications": {
+		"gecko": {
+			"id": "refined-gitlab@kipras.org",
+			"strict_min_version": "67.0"
+		}
+	},
+	"icons": {
+		"48": "refined-gitlab.png",
+		"96": "refined-gitlab@2x.png"
+	},
+	"permissions": [
+		"cookies",
+		"tabs",
+		"<all_urls>"
+	],
+	"options_ui": {
+		"chrome_style": true,
+		"page": "options.html"
+	},
+	"background": {
+		"scripts": [
+			"browser-polyfill.min.js",
+			"background.js"
+		]
+	},
+	"content_scripts": [
+		{
+			"matches": [
+				"<all_urls>"
+			],
+			"js": [
+				"browser-polyfill.min.js",
+				"content.js"
+			]
+		}
+	]
+}
