@@ -2,14 +2,14 @@
 
 Much like [refined-github](https://github.com/sindresorhus/refined-github), but for gitlab!
 
-## I. Install
+## Install
 
 
 - [**Chrome** extension <img valign="middle" src="https://img.shields.io/chrome-web-store/v/jaafoplpaafgeeclnaakkimfgajikgba.svg?label=%20">](https://chrome.google.com/webstore/detail/refined-gitlab/jaafoplpaafgeeclnaakkimfgajikgba/)
 
 - [**Firefox** add-on <img valign="middle" src="https://img.shields.io/amo/v/refined-gitlab.svg?label=%20">](https://addons.mozilla.org/en-US/firefox/addon/refined-gitlab/)
 
-## II. Try it from a local build
+## Try it from a local build
 
 Note - downloading a `.zip` won't work - do exactly as described below (you'll need `git` and `yarn`).
 
@@ -40,7 +40,7 @@ yarn build # you need to do this every time you update something inside this rep
 
 And then load up the built extension:
 
-### II.1 chrome:
+### chrome:
 
 navigate to
 
@@ -55,7 +55,7 @@ chrome://extensions
 
 done! Note that after shutting down the browser, you'll need to load the extension from the `distribution/` folder again (begin @ [#chrome](#ii.1-chrome))
 
-### II.2 firefox:
+### firefox:
 
 navigate to
 
@@ -70,7 +70,7 @@ about:debugging#/runtime/this-firefox
 
 done! Note that after shutting down the browser, you'll need to load the extension from the `distribution/` folder again (begin @ [#firefox](#ii.2-firefox))
 
-## III. Contributing
+## Contributing
 
 Here is a short overview to get your familiar with how the project works.
 
@@ -134,7 +134,7 @@ features.add({
 
 ``` -->
 
-## IV. Permission explanations
+## Permission explanations
 
 Permissions can be seen in [./source/manifest.json](./source/manifest.json)
 
@@ -143,22 +143,22 @@ Permissions can be seen in [./source/manifest.json](./source/manifest.json)
 - `tabs`: required to retrieve the current tab and send over the cookie from the background to content script (see [./source/scripts-background/gitlab-session-cookie-sync.ts](./source/scripts-background/gitlab-session-cookie-sync.ts))
 - `<all_urls>`: required since you have your own self-hosted gitlab instance and the `gitlab.com` url won't work
 
-## V Auto authentication
+## Auto authentication
 
 It works like magic -- both for local development (auto sign-in by borrowing your session from another browser), and for production (0-config API auth - just be signed in to GitLab, and all features that require the API will work automatically).
 
-## VI. Meta
+## Meta
 
 - [refined-gitlab](https://gitlab.com/kiprasmel/refined-gitlab) project ID on gitlab: `20434942`
 
 - [refined-gitlab-playground](https://gitlab.com/kiprasmel/refined-gitlab-playground) project ID on gitlab: `20690630`
 
 
-## VII. See also
+## See also
 
 - [Gitbeaker](https://github.com/jdalrymple/gitbeaker/) - GitLab's API wrapper we use here & often contribute to.
 - [Figma assets](https://www.figma.com/file/PyOJIJOClNV2dZs4QWU7Pa/Refined-GitLab) - icons, feature screenshots etc.
 
-## VII. License
+## License
 
 MIT © [Kipras Melnikovas](https://gitlab.com/kiprasmel)
