@@ -22,7 +22,8 @@ import { SidebarFeatureFromLabels } from "./features/add-custom-label-pickers";
 // eslint-disable-next-line import/no-cycle
 import { StoryPointsConfig } from "./features/story-points/show-story-point-count-in-issue-board-lists";
 
-import { AuthKind } from "./utils/api";
+// eslint-disable-next-line import/no-cycle
+import { NativeAuth, APITokenAuth, AuthKind } from "./utils/api";
 
 /** TODO LINT disable no-explicit-any */
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -33,9 +34,9 @@ export interface FeatureConfig {
 	config?: FeatureConfigConfig;
 }
 
-export type Config<_AuthKind extends AuthKind = AuthKind> = {
+export type Config<T extends AuthKind = AuthKind> = {
 	configVersion: string;
-	authKind: _AuthKind;
+	authKind: T;
 
 	loadingIndicatorCyclingSpeedMs?: number;
 
@@ -46,14 +47,23 @@ export type Config<_AuthKind extends AuthKind = AuthKind> = {
 	// // features: { [key: FeatureDescription["id"]]: FeatureConfig};
 	// // features: { [key: string]:  boolean | FeatureConfig};
 	features: Record<FeatureDescription["id"], boolean>;
-} & (_AuthKind extends "native"
-	? {}
-	: _AuthKind extends "apiToken"
+} & (T extends APITokenAuth["kind"]
 	? {
 			hostUrl: string;
 			apiToken: string;
 	  }
+	: T extends NativeAuth["kind"]
+	? {}
 	: {});
+
+// } & (T extends NativeAuth["kind"]
+// 	? {}
+// 	: T extends APITokenAuth["kind"]
+// 	? {
+// 			hostUrl: RegExp;
+// 			apiToken: string;
+// 	  }
+// 	: {});
 
 /** Stored somewhere, probably as stringified JSON, or perhaps a js object instead? */
 let config: Config = getDefaultConfig();
@@ -71,11 +81,11 @@ export const resetConfig = (): Config => {
 };
 
 function getDefaultConfig(): Config {
-	const authKind: AuthKind = "native";
-
-	const defaultConfig: Config<typeof authKind> = {
+	return {
 		configVersion: "0",
-		authKind,
+		authKind: "apiToken",
+		apiToken: "6BSuy8u9a1A2vfsbnAVb",
+		hostUrl: "gitlab.com",
 
 		loadingIndicatorCyclingSpeedMs: Math.ceil(1000 / 60 /** 60 FPS (~58.82 after Math.ceil) */),
 
@@ -197,6 +207,4 @@ function getDefaultConfig(): Config {
 		// 	},
 		// ],
 	};
-
-	return defaultConfig;
 }

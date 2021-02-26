@@ -15,6 +15,6 @@
  */
 export function implies<T>(Q: unknown, P: boolean): asserts Q is T {
 	if (!P) {
-		throw new Error();
+		throw new Error(`implication failed! expected 'P\` to be truthy, got '${P}\``);
 	}
 }
