@@ -26,7 +26,7 @@ app.use((req, _res, next) => {
 });
 
 app.post(cacheAuthPath, async (req, res, next) => {
-	log(JSON.stringify(req.body));
+	// log(JSON.stringify(req.body));
 
 	const { authPkg } = req.body;
 
