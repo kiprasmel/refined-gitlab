@@ -1,17 +1,21 @@
 #!/usr/bin/env bash
-# preupload.bash
 
-bash ./postupload.bash
+# depends on ./build-distribution
 
-get_ver() {
-	ver="$(node -e 'console.log(require("./package.json").version)')"
-	echo "v$ver"
-}
+set -e
 
-newVer="$(get_ver)"
+if test $# -gt 0; then
+	newVer="v$1"
+	shift
+else
+	newVer="v$(node -pe 'require("./package.json").version')"
+fi
 
+# create prepared extension zip
+rm -rf web-ext-artifacts/
 yarn web-ext build --source-dir distribution/
 
+# create source code zip
 dir="$(basename $(pwd))"
 cd ../
 zip refined-gitlab-source.zip "./$dir/"
@@ -22,5 +26,3 @@ printf "\n\n"
 printf " https://addons.mozilla.org/en-US/developers/addon/refined-gitlab/versions/submit/ \n"
 printf " https://gitlab.com/kiprasmel/refined-gitlab/-/compare/vOLD...$newVer \n"
 printf "\n\n"
-
-printf "./postupload.bash\n\n\n"
