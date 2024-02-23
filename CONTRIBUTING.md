@@ -15,9 +15,7 @@ use the `build:beta` if you're sending the extension to beta testers instead of 
 yarn build
 # or:  yarn build:beta
 
-yarn new-version
-
-bash ./preupload.bash
+bash ./preupload.sh
 ```
 
 the generated files are in [./distribution/](./distribution/) & [./web-ext-artifacts/](./web-ext-artifacts/).
