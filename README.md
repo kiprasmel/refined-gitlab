@@ -9,6 +9,16 @@ Much like [refined-github](https://github.com/sindresorhus/refined-github), but 
 
 - [**Firefox** add-on <img valign="middle" src="https://img.shields.io/amo/v/refined-gitlab.svg?label=%20">](https://addons.mozilla.org/en-US/firefox/addon/refined-gitlab/)
 
+### Verify integrity
+
+works for versions >= 0.9.1
+
+```sh
+PATH_TO_XPI="$HOME/Library/Application Support/Firefox/Profiles/<YOUR_PROFILE>/extensions/refined-gitlab@kipras.org.xpi"
+VERSION="0.9.0"
+./verify.sh "$PATH_TO_XPI" "$VERSION"
+```
+
 ## Try it from a local build
 
 Note - downloading a `.zip` won't work - do exactly as described below (you'll need `git` and `yarn`).
